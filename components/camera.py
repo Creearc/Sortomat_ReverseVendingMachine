@@ -118,7 +118,6 @@ class Camera:
   def start(self):
     c = Process(target=self.process, args=())
     c.start()
-    time.sleep(2.0)
 
 
 if __name__ == '__main__':

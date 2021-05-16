@@ -1,88 +1,83 @@
 # export DISPLAY=":0" && python3 main_0_2.py
 import os
 import sys
+path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
+sys.path.insert(0, path)
+
 import RPi.GPIO as GPIO
 from multiprocessing import Process, Value, Queue
 import cv2
 import threading
 import time
 
-import monitor
-import light
-import rotator
-import ir_sensors
-import destroyer
-import weight
-import camera
-
-import roi_function
-
-#import data_creation_main as dcm
-
-from Model import Model
-
-model1 = Model("model_full_7classes_13may.tflite")
-model1.debug = False
-model1.input_shape = (512, 297, 3)
-model1.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
-                 'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
-                 'pet__Green', 'pet__Transparent']
-
-model2 = Model("model_roi_7classes_13may.tflite")
-model2.debug = False
-model2.input_shape = (448, 224, 3)
-model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
-                 'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
-                 'pet__Green', 'pet__Transparent']
-
-if not os.path.exists('data'):
-  os.mkdir('data')
-
-path = 'data/{}'.format(len(os.listdir('data')))
-os.mkdir(path)
-
 try:
   machine_state = 0
   machine_state_old = -1
   state_changed = False
-
+  
+  print("_______________________________________________________________")
+  print("Подготовка монитора")
+  from components import monitor
   m = monitor.Monitor(1366, 768)
   m.start()
   m.state(0)
+  print("Монитор готов")
 
   print("_______________________________________________________________")
   print("Подготовка датчика веса")
+  from components import weight
   w = weight.Weight()
   print("Датчик веса готов")
 
   print("_______________________________________________________________")
-  print("Подготовка камеры")
-  c = camera.Camera()
-  c.start()
-  print("Камера готова")
-
-  print("_______________________________________________________________")
   print("Подготовка освещения")
+  from components import light
   l = light.Light()
   l.color_preset('blue')
   print("Освещение готово")
 
   print("_______________________________________________________________")
   print("Подготовка ИК датчиков")
+  from components import ir_sensors
   ir = ir_sensors.IR_sensors()
   print("ИК датчики готовы")
 
   print("_______________________________________________________________")
   print("Подготовка крыльчатки")
+  from components import rotator
   r = rotator.Rotator()
   r.calibrate()
   print("Крыльчатка готова")
 
   print("_______________________________________________________________")
   print("Подготовка сминателя")
+  from components import destroyer
   s = destroyer.Destroyer()
   s.start()
   print("Сминатель готов")
+
+  print("_______________________________________________________________")
+  print("Подготовка камеры")
+  from components import camera
+  c = camera.Camera()
+  c.start()
+  print("Камера готова")
+
+  print("_______________________________________________________________")
+  print("Подготовка нейронных сетей")
+  sys.path.insert(0, '{}/components/neural_network'.fomrat(path))
+  import neural_network
+
+  neural_network_component = neural_network.NeuralNetwork()
+  print("Нейронные сети готовы")
+
+  print("_______________________________________________________________")
+  print("Подготовка модуля сохранения фото")
+  sys.path.insert(0, path)
+  from components import img_saver
+  image_saver_component = img_saver.ImageSaver()
+  sys.path.insert(0, '{}/test'.fomrat(path))
+  print("Модуль сохранения фото готов")
 
   c_time = time.time()
 
@@ -177,29 +172,15 @@ try:
         time.sleep(0.2)
         for i in range(5):
           img = c.get_img()
-        out = roi_function.roi(img)
+          
+        ai_answer, results = neural_network_component.run(img)
+        image_saver_component.save(img, results)
 
-        _, result_1 = model1.classify_images([img[150:610, 80:1020]])
-
-        _, result_roi_1 = model1.classify_images([out])
-        _, result_roi_2 = model2.classify_images([out])
-
-        results = [result_1, result_roi_1, result_roi_2]
-        if 'Other__Other2' in results or 'empty_Empty' in results :
-          ai_answer = 1
-        else:
-          ai_answer = 0
-
-        cv2.imwrite('{}/{} .png'.format(path, len(os.listdir(path)), ' '.join(results)), img)
-        
-        print()
-        print(ai_answer)
         if ai_answer == 0:
           r.start()
           m.state(3)
           machine_state = 5
-          #time.sleep(2.0)
-          #machine_state = 0
+
         else:
           m.state(4)
           machine_state = -1
@@ -235,10 +216,12 @@ try:
       machine_state = 0
 
     if machine_state != machine_state_old:
+      print('[System]')
+      print('/////////////////////////////////////////////////////')
       print("Состояние сортомата: {} ".format(machine_state))
       print("ИК датчики {} ".format(str(ir.hand())))
       print("Крыльчатка: {}".format(r.state))
-      print("_______________________________________________________________")
+      print('/////////////////////////////////////////////////////')
     time.sleep(0.1)
       
 
