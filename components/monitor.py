@@ -1,0 +1,89 @@
+# Модуль монитора
+import sys
+from multiprocessing import Process, Value
+import pygame
+import cv2
+import time
+
+
+class Monitor:
+  def __init__(self, WIDTH=1920, HEIGHT=1080):
+    self.WIDTH = WIDTH
+    self.HEIGHT = HEIGHT
+
+    self.screen = pygame.display.set_mode([self.WIDTH, self.HEIGHT],
+                                          pygame.FULLSCREEN)
+    self.clock = pygame.time.Clock()
+    pygame.mouse.set_visible(False)
+    
+    self.PATH = '/'.join(sys.argv[0].split('/')[:-1])
+    self.PATH = '/home/pi/tests'
+    self.img_state = Value('i', 0)
+    self.process = Process(target=self.monitor_process, args=())
+
+  # Цикл работы с монитором
+  def monitor_process(self):
+    IMG_START = self.load_image('start.png')
+    IMG_READY = self.load_image('ready.png')
+    IMG_HAND = self.load_image('leave_me_alone.png')
+    IMG_BOTTLE = self.load_image('bottle.png')
+    IMG_OTHER = self.load_image('other.png')
+    IMG_CLEAN_IT = self.load_image('clean_it.png')
+    IMG_SAVED = self.load_image('saved.png')
+    IMG_WEIGHT = self.load_image('weight.png')
+    imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE, IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT]
+    while True:
+      self.screen.fill((255, 255, 255))
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+          break
+      self.show_image(imgs[self.img_state.value])
+      pygame.display.flip()
+      self.clock.tick(60)
+    pygame.quit()
+
+  # Запуск монитора
+  def start(self, left=True):
+    print('Запущен монитор')
+    self.process = Process(target=self.monitor_process, args=())
+    self.process.start()
+
+  # Остановка монитораs
+  def stop(self):
+    if self.process.is_alive():
+      self.process.kill()
+
+  def is_active(self):
+    if self.process.is_alive():
+      return True
+    else:
+      return False
+
+  def state(self, s):
+    self.img_state.value = s
+
+  # Загрузка изображения
+  def load_image(self, path_to_img):
+    img = pygame.image.load('{}/imgs/{}'.format(self.PATH, path_to_img))
+    img = pygame.transform.scale(img, (self.WIDTH, self.HEIGHT))
+    rect = img.get_rect(bottomright=(self.WIDTH, self.HEIGHT))
+    return [img, rect]
+
+  # Отображение изображения
+  def show_image(self, img):
+    self.screen.blit(img[0], img[1])
+    
+
+if __name__ == '__main__':
+  m = Monitor()
+  m.start()
+  while True:
+    m.state(0)
+    time.sleep(1.0)
+    m.state(1)
+    time.sleep(1.0)
+    m.state(2)
+    time.sleep(1.0)
+    m.state(3)
+    time.sleep(1.0)
+
