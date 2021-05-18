@@ -72,7 +72,7 @@ try:
   print("Подготовка нейронных сетей")
   sys.path.insert(0, '{}/components/neural_network'.format(path))
   import neural_network
-
+  sys.path.insert(0, '{}/models'.format(path))
   neural_network_component = neural_network.NeuralNetwork()
   print("Нейронные сети готовы")
 
