@@ -4,7 +4,7 @@ import roi_function
 class NeuralNetwork():
   def __init__(self):
     print('Model 1')
-    model1 = Model("model_full_7classes_13may.tflite")
+    model1 = Model("models/model_full_7classes_13may.tflite")
     print('Model 1 ready')
     model1.debug = False
     model1.input_shape = (512, 297, 3)
@@ -13,7 +13,7 @@ class NeuralNetwork():
                      'pet__Green', 'pet__Transparent']
     
     print('Model 2')
-    model2 = Model("model_roi_7classes_13may.tflite")
+    model2 = Model("models/model_roi_7classes_13may.tflite")
     print('Model 2 ready')
     model2.debug = False
     model2.input_shape = (448, 224, 3)
