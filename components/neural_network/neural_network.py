@@ -1,4 +1,4 @@
-from model import Model
+from model_component import Model
 import roi_function
 
 class NeuralNetwork():
