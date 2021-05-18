@@ -70,7 +70,7 @@ try:
 
   print("_______________________________________________________________")
   print("Подготовка нейронных сетей")
-  sys.path.insert(0, '{}/components/neural_network'.fomrat(path))
+  sys.path.insert(0, '{}/components/neural_network'.format(path))
   import neural_network
 
   neural_network_component = neural_network.NeuralNetwork()
