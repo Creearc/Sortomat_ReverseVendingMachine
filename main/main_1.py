@@ -71,6 +71,7 @@ try:
   print("_______________________________________________________________")
   print("Подготовка нейронных сетей")
   sys.path.insert(0, '{}/components/neural_network'.format(path))
+  print(sys.path[0])
   import neural_network
   print(1)
   sys.path.insert(0, '{}/models'.format(path))
