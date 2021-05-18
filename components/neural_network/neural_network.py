@@ -3,15 +3,18 @@ import roi_function
 
 class NeuralNetwork():
   def __init__(self):
+    print('Model 1')
     model1 = Model("model_full_7classes_13may.tflite")
+    print('Model 1 ready')
     model1.debug = False
     model1.input_shape = (512, 297, 3)
     model1.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                      'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
                      'pet__Green', 'pet__Transparent']
     
-
+    print('Model 2')
     model2 = Model("model_roi_7classes_13may.tflite")
+    print('Model 2 ready')
     model2.debug = False
     model2.input_shape = (448, 224, 3)
     model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
