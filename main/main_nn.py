@@ -199,8 +199,10 @@ try:
 
         if results.count('al__Other') == 3:
           r.left = False
+          s.use = False
         else:
           r.left = True
+          s.use = True
 
         cv2.imwrite('{}/{} .png'.format(path, len(os.listdir(path)), ' '.join(results)), img)
         
@@ -238,8 +240,9 @@ try:
 
     # 7 Включение сминателя
     elif machine_state == 7:
-      s.launch_destroyer()
-      c_time = time.time()
+      if s.use == True:
+        s.launch_destroyer()
+        c_time = time.time()
       machine_state = 0
 
     if machine_state != machine_state_old:

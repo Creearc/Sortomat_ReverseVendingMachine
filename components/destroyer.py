@@ -24,6 +24,7 @@ class Destroyer:
                           GPIO.BOTH, callback=self.optical_sensor)
 
     # Переменные
+    self.use = True
     self.step_time = 0
     self.reverse_time = 0
     self.working_time = 20
