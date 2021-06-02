@@ -26,14 +26,14 @@ from components.neural_network import roi_function
 sys.path.insert(0, '{}/components/neural_network'.format(path))
 from model_component import Model
 
-model1 = Model("model_full_7classes_18may.tflite")
+model1 = Model("model_full_7classes_13may.tflite")
 model1.debug = False
 model1.input_shape = (512, 297, 3)
 model1.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                  'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
                  'pet__Green', 'pet__Transparent']
 
-model2 = Model("model_roi_7classes_16may.tflite")
+model2 = Model("model_roi_7classes_13may.tflite")
 model2.debug = False
 model2.input_shape = (448, 224, 3)
 model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
