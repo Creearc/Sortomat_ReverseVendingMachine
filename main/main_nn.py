@@ -184,10 +184,10 @@ try:
           img = c.get_img()
         out = roi_function.roi(img)
 
-        _, result_1 = model1.classify_images([img[150:610, 80:1020]])
+        result_1 = model1.classify_images([img[150:610, 80:1020]])
 
-        _, result_roi_1 = model1.classify_images([out])
-        _, result_roi_2 = model2.classify_images([out])
+        result_roi_1 = model1.classify_images([out])
+        result_roi_2 = model2.classify_images([out])
 
         results = [result_1, result_roi_1, result_roi_2]
         print(results)
