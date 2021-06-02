@@ -184,6 +184,8 @@ try:
           img = c.get_img()
         out = roi_function.roi(img)
         print(out.shape)
+        if out.shape == (0, 0, 3):
+          out = img
 
         result_1 = model1.classify_images([img[150:610, 80:1020]])
 
