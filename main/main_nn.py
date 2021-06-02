@@ -183,6 +183,7 @@ try:
         for i in range(5):
           img = c.get_img()
         out = roi_function.roi(img)
+        print(out.shape)
 
         result_1 = model1.classify_images([img[150:610, 80:1020]])
 
