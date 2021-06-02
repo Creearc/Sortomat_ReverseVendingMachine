@@ -194,7 +194,7 @@ try:
 
         results = [result_1, result_roi_1, result_roi_2]
         print(results)
-        special = 'pet__Transparent'
+        special = 'pet__Brown'
         
         if 'Other__Other2' in results or 'empty_Empty' in results or (results.count(special) > 0 and results.count(special) < 3):
           ai_answer = 1
