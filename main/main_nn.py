@@ -195,7 +195,7 @@ try:
         results = [result_1, result_roi_1, result_roi_2]
         print(results)
         
-        if 'Other__Other2' in results or 'empty_Empty' in results :
+        if 'Other__Other2' in results or 'empty_Empty' in results or results.count('al__Other') == 1:
           ai_answer = 1
         else:
           ai_answer = 0
