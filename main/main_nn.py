@@ -23,7 +23,8 @@ from components.neural_network import roi_function
 
 #import data_creation_main as dcm
 
-from Model import Model
+sys.path.insert(0, '{}/components/neural_network'.format(path))
+from model_component import Model
 
 model1 = Model("model_full_7classes_13may.tflite")
 model1.debug = False
