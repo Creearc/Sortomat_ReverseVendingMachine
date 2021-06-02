@@ -194,13 +194,14 @@ try:
 
         results = [result_1, result_roi_1, result_roi_2]
         print(results)
+        special = 'al__Other'
         
-        if 'Other__Other2' in results or 'empty_Empty' in results or (results.count('al__Other') > 0 and results.count('al__Other') < 3):
+        if 'Other__Other2' in results or 'empty_Empty' in results or (results.count(special) > 0 and results.count(special) < 3):
           ai_answer = 1
         else:
           ai_answer = 0
 
-        if results.count('al__Other') == 3:
+        if results.count(special) == 3:
           r.left = False
           s.use = False
         else:
