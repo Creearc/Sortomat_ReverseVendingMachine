@@ -5,14 +5,22 @@ import pygame
 import cv2
 import time
 
+def write(text, x, y, screen, color=(200, 200, 200), size=150):
+  font = pygame.font.SysFont("Arial", size)
+  text = font.render(text, 1, color)
+  text_rect = text.get_rect(center=(x, y))
+  screen.blit(text, text_rect)
 
 class Monitor:
-  def __init__(self, WIDTH=1920, HEIGHT=1080):
+  def __init__(self, WIDTH=1920, HEIGHT=1080, full=True):
     self.WIDTH = WIDTH
     self.HEIGHT = HEIGHT
 
-    self.screen = pygame.display.set_mode([self.WIDTH, self.HEIGHT],
-                                          pygame.FULLSCREEN)
+    if full:
+      self.screen = pygame.display.set_mode([self.WIDTH, self.HEIGHT],
+                                            pygame.FULLSCREEN)
+    else:
+      self.screen = pygame.display.set_mode([self.WIDTH, self.HEIGHT])
     self.clock = pygame.time.Clock()
     pygame.mouse.set_visible(False)
     
@@ -75,7 +83,7 @@ class Monitor:
     
 
 if __name__ == '__main__':
-  m = Monitor()
+  m = Monitor(full=False)
   m.start()
   while True:
     m.state(0)
