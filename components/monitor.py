@@ -25,9 +25,11 @@ class Monitor:
     pygame.mouse.set_visible(False)
     
     self.PATH = '/'.join(sys.argv[0].split('/')[:-1])
-    self.PATH = '/home/pi/tests'
+    #self.PATH = '/home/pi/tests'
     self.img_state = Value('i', 0)
     self.process = Process(target=self.monitor_process, args=())
+    self.timer = 0
+    self.points = 0
 
   # Цикл работы с монитором
   def monitor_process(self):
@@ -39,6 +41,8 @@ class Monitor:
     IMG_CLEAN_IT = self.load_image('clean_it.png')
     IMG_SAVED = self.load_image('saved.png')
     IMG_WEIGHT = self.load_image('weight.png')
+    IMG_SAVED = self.load_image('qr.png')
+    IMG_WEIGHT = self.load_image('points.png')
     imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE, IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT]
     while True:
       self.screen.fill((255, 255, 255))
