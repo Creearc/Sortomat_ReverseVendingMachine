@@ -227,6 +227,9 @@ try:
         
         if 'Other__Other2' in results or 'empty_Empty' in results or (results.count(special) > 0 and results.count(special) < 3):
           ai_answer = 1
+          
+        else:
+          ai_answer = 0
           if results.count(special) == 3:
             points += 1
             r.left = False
@@ -235,8 +238,6 @@ try:
             points += 1
             r.left = True
             s.use = True
-        else:
-          ai_answer = 0
 
         cv2.imwrite('{}/{} .png'.format(save_path, len(os.listdir(save_path)), ' '.join(results)), img)
         
