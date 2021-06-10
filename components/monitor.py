@@ -80,7 +80,7 @@ class Monitor:
   def state(self, s):
     self.img_state.value = s
 
-  def points(self, p, t):
+  def set_points(self, p, t):
     self.points.value = p
     self.timeout.value = t
 

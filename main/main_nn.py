@@ -116,7 +116,7 @@ try:
           points_timeout = -1
         else:
           m.state(9)
-          m.points(points, t)
+          m.set_points(points, t)
       elif points_timeout == -1:
         pass
           
