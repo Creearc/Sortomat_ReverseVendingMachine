@@ -239,7 +239,7 @@ try:
             r.left = True
             s.use = True
 
-        cv2.imwrite('{}/{} .png'.format(save_path, len(os.listdir(save_path)), ' '.join(results)), img)
+        cv2.imwrite('{}/{}.png'.format(save_path, len(os.listdir(save_path)), ' '.join(results)), img)
         
         if ai_answer == 0:
           r.start()
