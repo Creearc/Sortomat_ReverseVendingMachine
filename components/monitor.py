@@ -76,6 +76,7 @@ class Monitor:
 
   # Загрузка изображения
   def load_image(self, path_to_img):
+    print(self.PATH)
     img = pygame.image.load('{}/imgs/{}'.format(self.PATH, path_to_img))
     img = pygame.transform.scale(img, (self.WIDTH, self.HEIGHT))
     rect = img.get_rect(bottomright=(self.WIDTH, self.HEIGHT))
