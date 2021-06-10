@@ -9,7 +9,7 @@ pygame.init()
 
 def write(text, x, y, screen, color=(200, 200, 200), size=150):
   font = pygame.font.SysFont("Arial", size)
-  text = font.render(text, 1, color)
+  text = font.render(str(text), 1, color)
   text_rect = text.get_rect(center=(x, y))
   screen.blit(text, text_rect)
 
