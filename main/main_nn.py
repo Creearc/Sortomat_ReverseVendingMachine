@@ -289,6 +289,7 @@ try:
 
 
 except KeyboardInterrupt:
+  s.stop_destroyer()
   GPIO.cleanup()
   print("_______________________________________________________________")
   print("Завершение работы")
