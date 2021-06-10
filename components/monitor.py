@@ -27,8 +27,8 @@ class Monitor:
     self.PATH = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-2])
     self.img_state = Value('i', 0)
     self.process = Process(target=self.monitor_process, args=())
-    self.timeout = 0
-    self.points = 0
+    self.timeout = Value('i', 0)
+    self.points = Value('i', 0)
 
   # Цикл работы с монитором
   def monitor_process(self):
