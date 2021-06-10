@@ -27,7 +27,7 @@ class Monitor:
     self.PATH = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-2])
     self.img_state = Value('i', 0)
     self.process = Process(target=self.monitor_process, args=())
-    self.timer = 0
+    self.timeout = 0
     self.points = 0
 
   # Цикл работы с монитором
@@ -40,15 +40,22 @@ class Monitor:
     IMG_CLEAN_IT = self.load_image('clean_it.png')
     IMG_SAVED = self.load_image('saved.png')
     IMG_WEIGHT = self.load_image('weight.png')
-    IMG_SAVED = self.load_image('qr.png')
-    IMG_WEIGHT = self.load_image('points.png')
-    imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE, IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT]
+    IMG_QR = self.load_image('qr.png')
+    IMG_POINTS = self.load_image('points.png')
+    imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE,
+            IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT,
+            IMG_QR, IMG_POINTS]
     while True:
       self.screen.fill((255, 255, 255))
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state.value])
+      if self.points.value > 0:
+        write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
+              self.screen,
+              color=(200, 200, 200), size=150)
+        
       pygame.display.flip()
       self.clock.tick(60)
     pygame.quit()
@@ -72,6 +79,10 @@ class Monitor:
 
   def state(self, s):
     self.img_state.value = s
+
+  def points(self, p, t):
+    self.points.value = p
+    self.timeout.value = t
 
   # Загрузка изображения
   def load_image(self, path_to_img):

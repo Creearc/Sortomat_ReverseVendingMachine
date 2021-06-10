@@ -90,6 +90,9 @@ try:
   print("Сминатель готов")
 
   c_time = time.time()
+  points = 0
+  points_timeout = 0
+  POINTS_TIMEOUT_WAIT = 10
 
   while True:
     state_changed = False
@@ -101,7 +104,22 @@ try:
     if machine_state == 0:
       if state_changed:
         m.state(1)
-        l.color_preset('blue')      
+        l.color_preset('blue')
+        if points > 0:
+          points_timeout = time.time() + POINTS_TIMEOUT_WAIT
+
+      if points > 0:
+        t = int(points_timeout - time.time())
+        if t < 0:
+          m.state(1)
+          points = 0
+          points_timeout = -1
+        else:
+          m.state(9)
+          m.points(points, t)
+      elif points_timeout == -1:
+        pass
+          
       if time.time() - c_time > 1.5:
         img = c.get_img()    
         if camera.is_object_blue(img, show=False, debug=False):
@@ -194,7 +212,7 @@ try:
 
         results = [result_1, result_roi_1, result_roi_2]
         print(results)
-        special = 'pet__Brown'
+        special = 'al__Other'
         
         if 'Other__Other2' in results or 'empty_Empty' in results or (results.count(special) > 0 and results.count(special) < 3):
           ai_answer = 1
@@ -202,9 +220,11 @@ try:
           ai_answer = 0
 
         if results.count(special) == 3:
+          points += 1
           r.left = False
           s.use = False
         else:
+          points += 1
           r.left = True
           s.use = True
 
