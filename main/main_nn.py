@@ -118,7 +118,7 @@ try:
           points_timeout = time.time() + POINTS_TIMEOUT_QR
         else:
           m.state(9)
-          m.set_points(points, t)
+        m.set_points(points, t)
       elif points < 0:
         t = int(points_timeout - time.time())
         if t < 0:
@@ -127,9 +127,8 @@ try:
           points_timeout = 0
         else:
           m.state(8)
-          m.set_points(points, t)
-        
-          
+        m.set_points(points, t)
+            
       if time.time() - c_time > 1.5:
         img = c.get_img()    
         if camera.is_object_blue(img, show=False, debug=False):
