@@ -70,7 +70,7 @@ def generate(points):
         img.save('qrcode.png')
         
 
-def make_img(background, qr_name='qrcode.png'):
+def make_img(background, save_path, qr_name='qrcode.png'):
   img = cv2.imread(qr_name)
   out = cv2.imread(background)
   h, w = out.shape[:2]
@@ -78,7 +78,7 @@ def make_img(background, qr_name='qrcode.png'):
   img = cv2.resize(img, (k, k))
   out[h // 2 - k // 2 + 20: h // 2 + k // 2 + 20,
       w // 2 - k // 2 : w // 2 + k // 2] = img
-  cv2.imwrite('imgs/tmp.png', out)
+  cv2.imwrite('{}/tmp.png'.format(save_path), out)
   return out
 
 
