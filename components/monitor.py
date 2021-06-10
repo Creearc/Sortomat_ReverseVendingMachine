@@ -5,9 +5,9 @@ import pygame
 import cv2
 import time
 
-DARK_BLUE = (1.0 * 0xbb, 1.0 * 0x75, 1.0 * 0x1b)
-LIGHT_BLUE = (1.0 * 0xef, 1.0 * 0xad, 1.0 * 0x00)
-GREEN = (1.0 * 0x23, 1.0 * 0xdf, 1.0 * 0xd6)
+DARK_BLUE = (1.0 * 0x1b, 1.0 * 0x75, 1.0 * 0xbb)
+LIGHT_BLUE = (1.0 * 0x00, 1.0 * 0xad, 1.0 * 0xef)
+GREEN = (1.0 * 0xd6, 1.0 * 0xdf, 1.0 * 0x23)
 WHITE = (255, 255, 255)
 
 pygame.init()

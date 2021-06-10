@@ -129,6 +129,7 @@ try:
           w.set_null()
         c_time = time.time()
       if ir.hand():
+        m.set_points(0, 0)
         machine_state = 1
 
 
