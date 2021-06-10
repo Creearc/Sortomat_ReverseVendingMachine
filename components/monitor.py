@@ -5,6 +5,11 @@ import pygame
 import cv2
 import time
 
+DARK_BLUE = (1.0 * 0xbb, 1.0 * 0x75, 1.0 * 0x1b)
+LIGHT_BLUE = (1.0 * 0xef, 1.0 * 0xad, 1.0 * 0x00)
+GREEN = (1.0 * 0x23, 1.0 * 0xdf, 1.0 * 0xd6)
+WHITE = (255, 255, 255)
+
 pygame.init()
 
 def write(text, x, y, screen, color=(200, 200, 200), size=150):
@@ -57,6 +62,10 @@ class Monitor:
         write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
               self.screen,
               color=(200, 200, 200), size=150)
+        
+        write(self.points.value, self.WIDTH // 2, int(self.HEIGHT * 0.7),
+              self.screen,
+              color=LIGHT_BLUE, size=177)
         
       pygame.display.flip()
       self.clock.tick(60)
