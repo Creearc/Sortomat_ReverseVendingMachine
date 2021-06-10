@@ -24,7 +24,7 @@ class Monitor:
     self.clock = pygame.time.Clock()
     pygame.mouse.set_visible(False)
     
-    self.PATH = '/'.join(sys.argv[0].split('/')[:-1])
+    #self.PATH = '/'.join(sys.argv[0].split('/')[:-1])
     #self.PATH = '/home/pi/tests'
     self.img_state = Value('i', 0)
     self.process = Process(target=self.monitor_process, args=())
@@ -76,8 +76,7 @@ class Monitor:
 
   # Загрузка изображения
   def load_image(self, path_to_img):
-    print(self.PATH)
-    img = pygame.image.load('{}/imgs/{}'.format(self.PATH, path_to_img))
+    img = pygame.image.load('imgs/{}'.format(path_to_img))
     img = pygame.transform.scale(img, (self.WIDTH, self.HEIGHT))
     rect = img.get_rect(bottomright=(self.WIDTH, self.HEIGHT))
     return [img, rect]
