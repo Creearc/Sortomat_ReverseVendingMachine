@@ -44,8 +44,8 @@ model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
 if not os.path.exists('data'):
   os.mkdir('data')
 
-path = 'data/{}'.format(len(os.listdir('data')))
-os.mkdir(path)
+save_path = 'data/{}'.format(len(os.listdir('data')))
+os.mkdir(save_path)
 
 try:
   machine_state = 0
@@ -227,19 +227,18 @@ try:
         
         if 'Other__Other2' in results or 'empty_Empty' in results or (results.count(special) > 0 and results.count(special) < 3):
           ai_answer = 1
+          if results.count(special) == 3:
+            points += 1
+            r.left = False
+            s.use = False
+          else:
+            points += 1
+            r.left = True
+            s.use = True
         else:
           ai_answer = 0
 
-        if results.count(special) == 3:
-          points += 1
-          r.left = False
-          s.use = False
-        else:
-          points += 1
-          r.left = True
-          s.use = True
-
-        cv2.imwrite('{}/{} .png'.format(path, len(os.listdir(path)), ' '.join(results)), img)
+        cv2.imwrite('{}/{} .png'.format(save_path, len(os.listdir(save_path)), ' '.join(results)), img)
         
         if ai_answer == 0:
           r.start()
