@@ -12,6 +12,7 @@ path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 sys.path.insert(0, path)
 
 from components import monitor
+from components import qr_gen
 from components import light
 from components import rotator
 from components import ir_sensors
@@ -93,6 +94,7 @@ try:
   points = 0
   points_timeout = 0
   POINTS_TIMEOUT_WAIT = 10
+  POINTS_TIMEOUT_QR = 10
 
   while True:
     state_changed = False
@@ -111,14 +113,22 @@ try:
       if points > 0:
         t = int(points_timeout - time.time())
         if t < 0:
-          m.state(1)
-          points = 0
-          points_timeout = -1
+          points = -1
+          qr_gen.make_img()
+          points_timeout = time.time() + POINTS_TIMEOUT_QR
         else:
           m.state(9)
           m.set_points(points, t)
-      elif points_timeout == -1:
-        pass
+      elif points < 0:
+        t = int(points_timeout - time.time())
+        if t < 0:
+          m.state(1)
+          points = 0
+          points_timeout = 0
+        else:
+          m.state(8)
+          m.set_points(points, t)
+        
           
       if time.time() - c_time > 1.5:
         img = c.get_img()    

@@ -67,6 +67,12 @@ class Monitor:
               self.screen,
               color=LIGHT_BLUE, size=177)
         
+      elif self.points.value < 0:
+        self.show_image(self.load_image('tmp.png'))
+        write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
+              self.screen,
+              color=(200, 200, 200), size=150)
+        
       pygame.display.flip()
       self.clock.tick(60)
     pygame.quit()

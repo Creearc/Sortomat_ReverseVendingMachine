@@ -78,7 +78,7 @@ def make_img(background, qr_name='qrcode.png'):
   img = cv2.resize(img, (k, k))
   out[h // 2 - k // 2 + 20: h // 2 + k // 2 + 20,
       w // 2 - k // 2 : w // 2 + k // 2] = img
-  
+  cv2.imwrite('tmp.png', out)
   return out
 
 
