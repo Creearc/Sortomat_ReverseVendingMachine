@@ -5,6 +5,8 @@ import pygame
 import cv2
 import time
 
+pygame.init()
+
 def write(text, x, y, screen, color=(200, 200, 200), size=150):
   font = pygame.font.SysFont("Arial", size)
   text = font.render(text, 1, color)
