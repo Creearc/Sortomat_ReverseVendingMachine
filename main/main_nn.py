@@ -113,9 +113,9 @@ try:
       if points > 0:
         t = int(points_timeout - time.time())
         if t < 0:
-          qr_gen.generate(points)
+          qr_gen.generate(points, '{}/imgs/qrcode.png'.format(path))
           points = -1
-          qr_gen.make_img('{}/imgs/qr.png'.format(path), '{}/imgs'.format(path),'{}/qrcode.png'.format(path))
+          qr_gen.make_img('{}/imgs/qr.png'.format(path), '{}/imgs'.format(path),'{}/imgs/qrcode.png'.format(path))
           points_timeout = time.time() + POINTS_TIMEOUT_QR
         else:
           m.state(9)

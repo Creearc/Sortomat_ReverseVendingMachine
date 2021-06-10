@@ -16,7 +16,7 @@ def write(text, x, y, screen, color=(200, 200, 200), size=150):
   text_rect = text.get_rect(center=(x, y))
   screen.blit(text, text_rect)
 
-def generate(points):
+def generate(points, save_path):
     baseUrl = 'http://lk.sortomat.ru'
     frontUrl = 'http://lk.sortomat.ru'
     credentials = {
@@ -67,7 +67,7 @@ def generate(points):
         qr.add_data(input_data)
         qr.make(fit=True)
         img = qr.make_image(fill='black', back_color='white')
-        img.save('qrcode.png')
+        img.save(save_path)
         
 
 def make_img(background, save_path, qr_name='qrcode.png'):
