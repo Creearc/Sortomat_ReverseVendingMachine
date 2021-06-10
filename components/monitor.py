@@ -49,9 +49,10 @@ class Monitor:
     IMG_WEIGHT = self.load_image('weight.png')
     IMG_QR = self.load_image('qr.png')
     IMG_POINTS = self.load_image('points.png')
+    IMG_GENERATION = self.load_image('generation.png')
     imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE,
             IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT,
-            IMG_QR, IMG_POINTS]
+            IMG_QR, IMG_POINTS, IMG_GENERATION ]
     while True:
       self.screen.fill((255, 255, 255))
       for event in pygame.event.get():
@@ -61,7 +62,7 @@ class Monitor:
       if self.points.value > 0:
         write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
               self.screen,
-              color=(200, 200, 200), size=150)
+              color=GREEN, size=150)
         
         write(self.points.value, self.WIDTH // 2, int(self.HEIGHT * 0.7),
               self.screen,
@@ -71,7 +72,7 @@ class Monitor:
         self.show_image(self.load_image('tmp.png'))
         write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
               self.screen,
-              color=(200, 200, 200), size=150)
+              color=GREEN, size=150)
         
       pygame.display.flip()
       self.clock.tick(60)
