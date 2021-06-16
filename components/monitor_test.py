@@ -35,7 +35,7 @@ class Monitor:
     self.img_state = Value('i', 0)
     self.process = Process(target=self.monitor_process, args=())
     self.timeout = Value('i', 0)
-    self.points = Value('i', 0)
+    self.points = Queue(1)
 
   # Цикл работы с монитором
   def monitor_process(self):
@@ -59,20 +59,14 @@ class Monitor:
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state.value])
-      if self.points.value > 0:
+      if not self.points.empty():
         write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
               self.screen,
               color=GREEN, size=150)
         
-        write(self.points.value, self.WIDTH // 2, int(self.HEIGHT * 0.7),
+        write(self.points.get(), self.WIDTH // 2, int(self.HEIGHT * 0.7),
               self.screen,
               color=LIGHT_BLUE, size=177)
-        
-      elif self.points.value < 0:
-        self.show_image(self.load_image('tmp.png'))
-        write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
-              self.screen,
-              color=GREEN, size=150)
         
       pygame.display.flip()
       self.clock.tick(60)
@@ -99,7 +93,7 @@ class Monitor:
     self.img_state.value = s
 
   def set_points(self, p, t):
-    self.points.value = p
+    self.points.put(p)
     self.timeout.value = t
 
   # Загрузка изображения
