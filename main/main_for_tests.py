@@ -108,7 +108,7 @@ try:
       if state_changed:
         m.state(1)
         l.color_preset('blue')
-        if points > 0:
+        if points != '':
           points_timeout = time.time() + POINTS_TIMEOUT_WAIT
 
       if points != '':
