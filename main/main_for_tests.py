@@ -115,11 +115,11 @@ try:
         t = int(points_timeout - time.time())
         if t <= 0:
           m.set_points(0, 0)
-          m.state(10)
+          m.state(1)
           points = ''
           points_timeout = time.time() + POINTS_TIMEOUT_QR
         else:
-          m.state(1)
+          m.state(9)
         m.set_points(points, t)
             
       if time.time() - c_time > 1.5:
