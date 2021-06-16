@@ -108,8 +108,6 @@ try:
       if state_changed:
         m.state(1)
         l.color_preset('blue')
-        if points != '':
-          points_timeout = time.time() + POINTS_TIMEOUT_WAIT
 
       if points != '':
         t = int(points_timeout - time.time())
@@ -170,6 +168,7 @@ try:
     elif machine_state == 1:
       if state_changed:
         l.color_preset('blue')
+        points = ''
         m.state(2)
       if not ir.hand():
         machine_state = 2
