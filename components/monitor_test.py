@@ -66,7 +66,7 @@ class Monitor:
         
         write(self.points.get(), self.WIDTH // 2, int(self.HEIGHT * 0.7),
               self.screen,
-              color=LIGHT_BLUE, size=177)
+              color=LIGHT_BLUE, size=100)
         
       pygame.display.flip()
       self.clock.tick(60)
