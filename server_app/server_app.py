@@ -42,7 +42,7 @@ def set_out():
 def get_manual():
   global manual
   if request.method == 'GET':
-    return manual
+    return str(manual)
 
 @app.route('/set_manual', methods=['POST'])
 def set_manual():
@@ -55,9 +55,9 @@ def set_manual():
 
 @app.route('/get_aluminium', methods=['GET'])
 def get_aluminium():
-  global manual
+  global aluminium
   if request.method == 'GET':
-    return manual
+    return str(aluminium)
 
 @app.route('/set_aluminium', methods=['POST'])
 def set_aluminium():

@@ -58,6 +58,12 @@ try:
   m.state(0)
 
   print("_______________________________________________________________")
+  print("Подготовка связи с космосом")
+  client = client_app.Client()
+  client.start()
+  print("Связь с космосом готова")
+
+  print("_______________________________________________________________")
   print("Подготовка датчика веса")
   w = weight.Weight()
   print("Датчик веса готов")
@@ -98,6 +104,8 @@ try:
   POINTS_TIMEOUT_QR = 15
 
   while True:
+    if client.manual == True:
+      machine_state = client.state
     state_changed = False
     if machine_state != machine_state_old:
       state_changed = True
@@ -149,6 +157,7 @@ try:
     # -1 В отсеке лежит объект, который нужно забрать
     elif machine_state == -1:
       if state_changed:
+        m.state(4)
         l.color_preset('red')
       img = c.get_img()      
       if not camera.is_object_red(img, show=False, debug=False):
