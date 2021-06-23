@@ -72,12 +72,14 @@ def generate(points, save_path):
 
 def make_img(background, save_path, qr_name='qrcode.png'):
   img = cv2.imread(qr_name)
+  img = img[40 : 430,  40 : 430].copy()
   out = cv2.imread(background)
   h, w = out.shape[:2]
-  k = w // 4
+  k = w // 6
   img = cv2.resize(img, (k, k))
-  out[h // 2 - k // 2 + 20: h // 2 + k // 2 + 20,
-      w // 2 - k // 2 : w // 2 + k // 2] = img
+  center = int(w // 5.335), int(h // 2)
+  out[center[1] - k // 2: center[1] + k // 2,
+      center[0] - k // 2 : center[0] + k // 2] = img
   cv2.imwrite('{}/tmp.png'.format(save_path), out)
   return out
 
@@ -86,8 +88,9 @@ if __name__ == '__main__':
   import sys
   path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
   sys.path.insert(0, path)
-  #generate(50)
-  img = make_img('{}/imgs/qr.png'.format(path), '{}/qrcode.png'.format(path))
+  print(path)
+  #generate(50, '{}/qrcode.png'.format(path))
+  img = make_img('{}/imgs/qr.png'.format(path), '{}/imgs'.format(path), '{}/qrcode.png'.format(path))
   
   cv2.imshow('', img)
   cv2.waitKey(0)
