@@ -141,7 +141,7 @@ try:
           m.state(8)
         m.set_points(points, t)
             
-      if time.time() - c_time > 1.5:
+      if time.time() - c_time > 1.5 and points >= 0:
         img = c.get_img()    
         if camera.is_object_blue(img, show=False, debug=False):
           machine_state = -2
