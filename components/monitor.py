@@ -62,17 +62,17 @@ class Monitor:
       if self.points.value > 0:
         write(self.timeout.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.73),
               self.screen,
-              color=GREEN, size=130)
+              color=GREEN, size=90)
         
         write(self.points.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.615),
               self.screen,
-              color=LIGHT_BLUE, size=130)
+              color=LIGHT_BLUE, size=90)
         
       elif self.points.value < 0:
         self.show_image(self.load_image('tmp.png'))
         write(self.timeout.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.648),
               self.screen,
-              color=GREEN, size=130)
+              color=GREEN, size=90)
         
       pygame.display.flip()
       self.clock.tick(60)

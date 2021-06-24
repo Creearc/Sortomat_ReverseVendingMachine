@@ -50,8 +50,8 @@ class Monitor:
     imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE,
             IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT,
             IMG_QR, IMG_POINTS, IMG_GENERATION ]
-    self.img_state = 8
-    self.points = -8
+    self.img_state = 9
+    self.points = 8
     self.timeout = 10
     while True:
       self.screen.fill((255, 255, 255))
@@ -62,17 +62,17 @@ class Monitor:
       if self.points > 0:
         write(self.timeout, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.73),
               self.screen,
-              color=GREEN, size=130)
+              color=GREEN, size=90)
         
         write(self.points, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.615),
               self.screen,
-              color=LIGHT_BLUE, size=130)
+              color=LIGHT_BLUE, size=90)
         
       elif self.points < 0:
         self.show_image(self.load_image('tmp.png'))
         write(self.timeout, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.648),
               self.screen,
-              color=GREEN, size=130)
+              color=GREEN, size=90)
         
       pygame.display.flip()
       self.clock.tick(60)
@@ -120,6 +120,6 @@ class Monitor:
     
 
 if __name__ == '__main__':
-  m = Monitor(full=False)
+  m = Monitor(1366, 768, full=False)
   m.monitor_process()
   
