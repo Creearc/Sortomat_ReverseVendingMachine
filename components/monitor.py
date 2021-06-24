@@ -59,7 +59,7 @@ class Monitor:
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state.value])
-      if self.points.value > 0:
+      if self.points.value > 0 and self.img_state.value == 9:
         write(self.timeout.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.73),
               self.screen,
               color=GREEN, size=90)
@@ -68,7 +68,7 @@ class Monitor:
               self.screen,
               color=LIGHT_BLUE, size=90)
         
-      elif self.points.value < 0:
+      elif self.points.value < 0 and self.img_state.value == 8:
         self.show_image(self.load_image('tmp.png'))
         write(self.timeout.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.648),
               self.screen,
