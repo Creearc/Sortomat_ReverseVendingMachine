@@ -149,7 +149,7 @@ try:
           machine_state = 0
           w.set_null()
         c_time = time.time()
-      if ir.hand():
+      if ir.hand() and points == 0:
         m.set_points(0, 0)
         machine_state = 1
 
