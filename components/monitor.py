@@ -12,7 +12,7 @@ WHITE = (255, 255, 255)
 
 pygame.init()
 
-def write(text, x, y, screen, color=(200, 200, 200), size=150):
+def write(text, x, y, screen, color=(200, 200, 200), size=150, bold=True):
   font = pygame.font.SysFont("Arial", size)
   text = font.render(str(text), 1, color)
   text_rect = text.get_rect(center=(x, y))
@@ -59,20 +59,20 @@ class Monitor:
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state.value])
-      if self.points.value > 0:
-        write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
+      if self.points > 0:
+        write(self.timeout, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.73),
               self.screen,
-              color=GREEN, size=150)
+              color=GREEN, size=130)
         
-        write(self.points.value, self.WIDTH // 2, int(self.HEIGHT * 0.7),
+        write(self.points, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.615),
               self.screen,
-              color=LIGHT_BLUE, size=177)
+              color=LIGHT_BLUE, size=130)
         
-      elif self.points.value < 0:
+      elif self.points < 0:
         self.show_image(self.load_image('tmp.png'))
-        write(self.timeout.value, self.WIDTH // 2, int(self.HEIGHT * 0.9),
+        write(self.timeout, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.648),
               self.screen,
-              color=GREEN, size=150)
+              color=GREEN, size=130)
         
       pygame.display.flip()
       self.clock.tick(60)
