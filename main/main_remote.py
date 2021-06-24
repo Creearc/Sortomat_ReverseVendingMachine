@@ -53,7 +53,7 @@ try:
   machine_state_old = -1
   state_changed = False
 
-  m = monitor.Monitor(1366, 768)
+  m = monitor.Monitor(1920, 1080)
   m.start()
   m.state(0)
 
