@@ -34,7 +34,7 @@ class Client:
         self.manual = ask('http://{}:{}'.format(self.IP, self.PORT), 'manual') == b'True'
         self.aluminium = ask('http://{}:{}'.format(self.IP, self.PORT), 'aluminium') == b'True'
       #print(self.state, self.manual, self.aluminium)
-      print(self.get_state())
+      #print(self.get_state())
       time.sleep(0.01)
 
 

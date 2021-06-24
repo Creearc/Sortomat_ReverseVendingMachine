@@ -105,7 +105,7 @@ try:
 
   while True:
     if client.manual == True:
-      machine_state = client.state
+      machine_state = client.get_state()
     state_changed = False
     if machine_state != machine_state_old:
       state_changed = True
