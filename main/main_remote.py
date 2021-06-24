@@ -19,7 +19,7 @@ from components import ir_sensors
 from components import destroyer
 from components import weight
 from components import camera
-from compomemts import client_app
+from components import client_app
 
 from components.neural_network import roi_function
 
