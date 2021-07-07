@@ -75,7 +75,7 @@ def is_object_blue(img, debug=False, show=False):
     cv2.imshow('is_object', np.vstack([out, old]))
     cv2.waitKey(1)
     
-  if mx > 30:
+  if mx > 10:
     return True
   else:
     return False
