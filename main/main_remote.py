@@ -19,7 +19,7 @@ from components import ir_sensors
 from components import destroyer
 from components import weight
 from components import camera
-from compomemts import client_app
+from components import client_app
 
 from components.neural_network import roi_function
 
@@ -105,7 +105,7 @@ try:
 
   while True:
     if client.manual == True:
-      machine_state = client.state
+      machine_state = client.get_state()
     state_changed = False
     if machine_state != machine_state_old:
       state_changed = True
@@ -141,7 +141,7 @@ try:
           m.state(8)
         m.set_points(points, t)
             
-      if time.time() - c_time > 1.5:
+      if time.time() - c_time > 1.5 and points >= 0:
         img = c.get_img()    
         if camera.is_object_blue(img, show=False, debug=False):
           machine_state = -2
@@ -149,7 +149,7 @@ try:
           machine_state = 0
           w.set_null()
         c_time = time.time()
-      if ir.hand():
+      if ir.hand() and points >= 0:
         m.set_points(0, 0)
         machine_state = 1
 

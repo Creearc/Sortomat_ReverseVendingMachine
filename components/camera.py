@@ -75,7 +75,7 @@ def is_object_blue(img, debug=False, show=False):
     cv2.imshow('is_object', np.vstack([out, old]))
     cv2.waitKey(1)
     
-  if mx > 30:
+  if mx > 10:
     return True
   else:
     return False
@@ -126,8 +126,8 @@ if __name__ == '__main__':
   c.start()
   while True:
     img = c.get_img()
-    #print(is_object(frame, True, True))
-    print(is_object_red(img, True, True))
+    print(is_object_blue(img, True, True))
+    #print(is_object_red(img, True, True))
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q") or key == 27:

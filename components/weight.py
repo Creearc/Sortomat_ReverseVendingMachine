@@ -35,7 +35,7 @@ class Weight:
     self.start_weight = self.measure(5)
 
   def is_heavy(self):
-    weight = self.measure(2)
+    weight = self.measure(5)
     delta = weight - self.start_weight
     print(delta)
     if delta > self.HEAVY:

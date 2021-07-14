@@ -19,6 +19,8 @@ class Client:
     self.state_to_num = {'normal' : 0, 'hand' : 1, 'bottle' : 5,  'not_bottle' : -1,
                          'heavy' : -3, 'no_hand' : 2, 'destroyer' : 7}
     self.lock = threading.Lock()
+    self.manual = False
+    self.state  = 'normal'
 
   def get_state(self):
     return self.state_to_num[self.state.decode()]
@@ -34,7 +36,7 @@ class Client:
         self.manual = ask('http://{}:{}'.format(self.IP, self.PORT), 'manual') == b'True'
         self.aluminium = ask('http://{}:{}'.format(self.IP, self.PORT), 'aluminium') == b'True'
       #print(self.state, self.manual, self.aluminium)
-      print(self.get_state())
+      #print(self.get_state())
       time.sleep(0.01)
 
 
