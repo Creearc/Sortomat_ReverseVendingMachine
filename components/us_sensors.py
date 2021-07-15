@@ -28,12 +28,12 @@ class US_sensor:
 
     while GPIO.input(self.ECHO_PIN)==0:
       pulse_start_time = time.time()
-      if time.time() - t > 0.7:
+      if time.time() - t > 1.7:
         print('Не удалось измерить расстояние')
         return 11.0
     while GPIO.input(self.ECHO_PIN)==1:
       pulse_end_time = time.time()
-      if time.time() - t > 0.7:
+      if time.time() - t > 1.7:
         print('Не удалось измерить расстояние')
         return 11.0
 
