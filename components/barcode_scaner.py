@@ -16,7 +16,9 @@ class Scaner():
 
 
 if __name__ == '__main__':
-  scaner = Scaner()
-  print('Reading')
+##  scaner = Scaner()
+##  print('Reading')
+##  while True:
+##    print(scaner.read())
   while True:
-    print(scaner.read())
+    print(input())
