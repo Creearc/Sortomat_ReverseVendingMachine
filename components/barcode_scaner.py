@@ -1,4 +1,6 @@
 import serial
+import keyboard
+
 
 class Scaner():
   def __init__(self, device='/dev/serial0', bandwidth=9600):
@@ -20,5 +22,6 @@ if __name__ == '__main__':
 ##  print('Reading')
 ##  while True:
 ##    print(scaner.read())
-  while True:
-    print(input())
+   while True:
+     print(keyboard.read_key())
+
