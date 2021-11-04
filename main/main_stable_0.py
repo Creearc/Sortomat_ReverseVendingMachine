@@ -20,11 +20,9 @@ from components import us_sensors
 from components import destroyer
 from components import weight
 from components import camera
-from compomemts import client_app
 
 from components.neural_network import roi_function
 
-#import data_creation_main as dcm
 
 sys.path.insert(0, '{}/components/neural_network'.format(path))
 from model_component import Model
@@ -57,12 +55,6 @@ try:
   m = monitor.Monitor(1366, 768)
   m.start()
   m.state(0)
-
-  print("_______________________________________________________________")
-  print("Подготовка связи с космосом")
-  client = client_app.Client()
-  client.start()
-  print("Связь с космосом готова")
 
   print("_______________________________________________________________")
   print("Подготовка датчика веса")
@@ -104,199 +96,222 @@ try:
   print("Сминатель готов")
 
   c_time = time.time()
+  C_TIME_PAUSE = 1.5
+
+  hand_time = 0.0
+  HAND_TIME_LIMIT_SMALL = 60.0 * 1
+  HAND_TIME_LIMIT_LONG = 60.0 * 5
+
+  special = 'al__Other'
+  add_points = 0
+
+  rotator_timer = 0.0
+  ROTATOR_TIMER_LIMIT = 5.0
+  
   points = 0
   points_timeout = 0
   POINTS_TIMEOUT_WAIT = 10
   POINTS_TIMEOUT_QR = 15
 
   while True:
-    if client.manual == True:
-      machine_state = client.state
-    state_changed = False
     if machine_state != machine_state_old:
       state_changed = True
     machine_state_old = machine_state
 
-    # 0 Ожидание
+    # 0 Покой
     if machine_state == 0:
       if state_changed:
         m.state(1)
         l.color_preset('blue')
-        if points > 0:
-          points_timeout = time.time() + POINTS_TIMEOUT_WAIT
-
-      if points > 0:
-        t = int(points_timeout - time.time())
-        if t <= 0:
-          m.set_points(0, 0)
-          m.state(10)
-          qr_gen.generate(points, '{}/imgs/qrcode.png'.format(path))
-          points = -1
-          qr_gen.make_img('{}/imgs/qr.png'.format(path), '{}/imgs'.format(path),'{}/imgs/qrcode.png'.format(path))
-          points_timeout = time.time() + POINTS_TIMEOUT_QR
-        else:
-          m.state(9)
-        m.set_points(points, t)
-      elif points < 0:
-        t = int(points_timeout - time.time())
-        if t < 0:
-          m.state(1)
-          points = 0
-          points_timeout = 0
-        else:
-          m.state(8)
-        m.set_points(points, t)
-            
-      if time.time() - c_time > 1.5:
-        img = c.get_img()    
-        if camera.is_object_blue(img, show=False, debug=False):
-          machine_state = -2
-        else:
-          machine_state = 0
-          w.set_null()
+  
+      if ir.hand():
+        machine_state = 1
+      elif time.time() - c_time > C_TIME_PAUSE:
+        img = c.get_img()
         c_time = time.time()
-      if ir.hand():
-        m.set_points(0, 0)
-        machine_state = 1
-
-
-    # -1 В отсеке лежит объект, который нужно забрать
-    elif machine_state == -1:
-      if state_changed:
-        m.state(4)
-        l.color_preset('red')
-      img = c.get_img()      
-      if not camera.is_object_red(img, show=False, debug=False):
-        machine_state = 0
-      if ir.hand():
-        machine_state = 1
-            
-    # -2 В отсеке лежит объект, который нужно забрать
-    elif machine_state == -2:
-      if state_changed:
-        m.state(5)
-        l.color_preset('red')
-      img = c.get_img()  
-      if not camera.is_object_red(img, show=False, debug=False):
-        machine_state = 0
-      if ir.hand():
-        machine_state = 1
-
-    elif machine_state == -3:
-      if state_changed:
-        m.state(7)
-        l.color_preset('red')
-      img = c.get_img()      
-      if not camera.is_object_red(img, show=False, debug=False):
-        machine_state = 0
-      if ir.hand():
-        machine_state = 1
-
-    # 1 В отсеке приема есть рука
+        if camera.is_object_blue(img, show=False, debug=False):
+          machine_state = 11
+        else:
+          w.set_null()
+      elif False:
+        """Storage check"""
+        pass
+        
+    # 1 Рука
     elif machine_state == 1:
       if state_changed:
         l.color_preset('blue')
         m.state(2)
+        hand_time = time.time()
       if not ir.hand():
         machine_state = 2
+      elif time.time() - hand_time > HAND_TIME_LIMIT_SMALL:
+        machine_state = 12
 
-
-    # 2 В отсеке приема может находиться объект
+    # 2 В крыльчатке может быть объект
     elif machine_state == 2:
+      time.sleep(0.2)
       if ir.hand():
         machine_state = 1
-      time.sleep(0.2)
-      img = c.get_img()      
-      if camera.is_object_blue(img, show=False, debug=False):
-        machine_state = 3
       else:
-        machine_state = 0
+        img = c.get_img()
+        if camera.is_object_blue(img, show=False, debug=False):
+          machine_state = 3
+        else:
+          machine_state = 13
 
-    # 3 В отсеке лежит объект
+    # 3 Проверка веса 
     elif machine_state == 3:
-      if w.is_heavy():
-        machine_state = -3
+      if ir.hand():
+        machine_state = 1
+      elif w.is_heavy():
+        machine_state = 14
       else:
         machine_state = 4
 
-
-    # 4 Ожидание ответа от распознавания
+    # 4 Распознавание объекта
     elif machine_state == 4:
+      l.color_preset('white', 100)
+      time.sleep(0.2)
       if ir.hand():
         machine_state = 1
       else:
-        l.color_preset('white', 100)
-        time.sleep(0.2)
         for i in range(5):
           img = c.get_img()
         out = roi_function.roi(img)
-        print(out.shape)
         if out.shape == (0, 0, 3):
           out = img
-
+          
         result_1 = model1.classify_images([img[150:610, 80:1020]])
-
         result_roi_1 = model1.classify_images([out])
         result_roi_2 = model2.classify_images([out])
-
         results = [result_1, result_roi_1, result_roi_2]
-        print(results)
-        special = 'al__Other'
-        
-        if 'Other__Other2' in results or 'empty_Empty' in results or (results.count(special) > 0 and results.count(special) < 3):
-          ai_answer = 1
-          
-        else:
-          ai_answer = 0
-          if results.count(special) == 3:
-            points += 1
-            r.left = False
-            s.use = False
-          else:
-            points += 1
-            r.left = True
-            s.use = True
 
+        print(results)
         cv2.imwrite('{}/{}.png'.format(save_path, len(os.listdir(save_path)), ' '.join(results)), img)
-        
-        if ai_answer == 0:
-          r.start()
-          m.state(3)
+
+        if results.count(special) == 3:
+          add_points = 1
+          r.left = False
+          s.use = False
+          machine_state = 5
+        elif results.count('Other__Other2') == 0 and results.count('empty_Empty') == 0:
+          add_points = 1
+          r.left = True
+          s.use = True
           machine_state = 5
         else:
-          m.state(4)
-          machine_state = -1
-
-
-    # 5 Вращение крыльчатки
+          machine_state = 15
+        
+    # 5 Запуск крыльчатки
     elif machine_state == 5:
       if state_changed:
         m.state(3) 
         l.color_preset('green')
-      if not r.working:
-        machine_state = 7
+        rotator_timer = time.time()
+        r.start()
+        
       if ir.hand():
-        r.stop()
+        add_points = 0
+        machine_state = 19
+        
+      if not r.working:
         machine_state = 6
+      elif time.time() - rotator_timer > ROTATOR_TIMER_LIMIT:
+        add_points = 0
+        machine_state = 16
       
-
-    # 6 Остановка крыльчатки
+    # 6 Добавление баллов
     elif machine_state == 6:
-      if state_changed:
-        m.state(2) 
-        l.color_preset('red')
-      if not ir.hand():
-        time.sleep(1.0)
-        r.calibrate()
-        machine_state = 5
+      points += add_points
+      machine_state = 7
 
-
-    # 7 Включение сминателя
+    # 7 Запуск сминателя
     elif machine_state == 7:
+      """Error 5"""
       if s.use == True:
         s.launch_destroyer()
         c_time = time.time()
       machine_state = 0
+
+    # 0 Ожидание
+    elif machine_state == 8:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 9:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 10:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 11:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 12:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 13:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 14:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 15:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 16:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 17:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 18:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 19:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 20:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 21:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 22:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 23:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 24:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 25:
+      pass
+
+    # 0 Ожидание
+    elif machine_state == 26:
+      pass
+
+    
+    
 
     if machine_state != machine_state_old:
       print("Состояние сортомата: {} ".format(machine_state))
