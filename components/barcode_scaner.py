@@ -1,7 +1,7 @@
 import serial
 
 class Scaner():
-  def __init__(self, device='/dev/ttyUSB0', bandwidth=57600):
+  def __init__(self, device='/dev/ttyS0', bandwidth=9600):
     self.ser = serial.Serial(device, bandwidth)
 
   def read(self):
