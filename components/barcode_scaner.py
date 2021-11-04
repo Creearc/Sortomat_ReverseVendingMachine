@@ -3,7 +3,7 @@ import keyboard
 
 
 class Scaner():
-  def __init__(self, device='/dev/serial0', bandwidth=9600):
+  def __init__(self, device='/dev/hidraw0', bandwidth=9600):
     self.ser = serial.Serial(device, bandwidth)
 
   def read(self):
@@ -18,10 +18,9 @@ class Scaner():
 
 
 if __name__ == '__main__':
-##  scaner = Scaner()
-##  print('Reading')
-##  while True:
-##    print(scaner.read())
-   while True:
-     print(keyboard.read_key())
-
+  scaner = Scaner()
+  print('Reading')
+  while True:
+    print(scaner.read())
+##   while True:
+##     print(keyboard.read_key())
