@@ -11,6 +11,7 @@ def read():
   f = open("/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00", 'r')
   for s in f:
     out = s
+  f.close()
   return out
 
 
