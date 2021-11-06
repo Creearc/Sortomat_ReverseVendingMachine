@@ -1,5 +1,6 @@
 import serial
 import keyboard
+import os
 
 
 class Scaner():
