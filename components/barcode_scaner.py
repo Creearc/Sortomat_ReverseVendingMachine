@@ -8,9 +8,9 @@ class Scaner():
     self.ser = serial.Serial(device, bandwidth)
 
 def read():
-  out = ''
-  while out == '':
-    out = os.popen("cat /dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00").read()
+  f = open("/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00", 'r')
+  for s in f:
+    out = s
   return out
 
 
@@ -21,5 +21,3 @@ if __name__ == '__main__':
   print('Reading')
   while True:
     print(read())
-##   while True:
-##     print(keyboard.read_key())
