@@ -16,7 +16,7 @@ def read():
 
 
 if __name__ == '__main__':
-  scaner = Scaner()
+  #scaner = Scaner()
   print('Reading')
   while True:
     print(read())
