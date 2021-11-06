@@ -1,6 +1,7 @@
 import serial
 import keyboard
 import os
+import time()
 
 
 ##class Scaner():
@@ -24,6 +25,7 @@ def read():
 
 if __name__ == '__main__':
   #scaner = Scaner()
+  time.sleep(2.0)
   print('Reading')
   while True:
     print(read())
