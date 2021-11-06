@@ -9,8 +9,7 @@ class Scaner():
 
 def read():
   with open("/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00", 'r') as f:
-    out = f.readlines()
-  return out
+    return f.readline()
 
 
 
