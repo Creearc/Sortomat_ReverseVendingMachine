@@ -1,7 +1,7 @@
 import serial
 import keyboard
 import os
-import time()
+import time
 
 
 ##class Scaner():
