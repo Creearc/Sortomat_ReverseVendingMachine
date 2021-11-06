@@ -10,6 +10,7 @@ import os
 
 def read():
   with open("/dev/serial/by-id/usb-USBKey_Chip_USBKey_Module_202730041341-if00", 'r') as f:
+    print('/ ', f.readline())
     return f.readline()
 
 
