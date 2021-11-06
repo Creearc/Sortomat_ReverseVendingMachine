@@ -15,6 +15,7 @@ def read():
         out = f.readline()
         print('? ', out)
       except:
+        print('________')
         break
     return out
 
