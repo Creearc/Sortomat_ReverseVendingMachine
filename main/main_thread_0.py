@@ -34,4 +34,4 @@ if __name__ == '__main__':
     try:
       value(components, data)
     except Exception as e:
-      print(e)
+      print(key, e)

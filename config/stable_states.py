@@ -31,7 +31,7 @@ def state_1(components, data):
     components['monitor'].set_points(data['points'], 0)
     components['monitor'].state(9)
 
-  if components['ir_sensors'].is_hand():
+  if components['ir_sensors'].hand():
     return 1, 2
 
   if time.time() - data['check_time'] > components['CHECK_TIME']:
@@ -55,7 +55,7 @@ def state_2(components, data):
     components['monitor'].state(2)
     components['light'].color_preset('blue')
     data['hand_detection_time'] = time.time()
-  if not components['ir_sensors'].is_hand():
+  if not components['ir_sensors'].hand():
     return 1, 3
   if time.time() - data['hand_detection_time'] > components['HAND_DETECTION_TIME_LIMIT_SMALL']:
     return 1, 999
@@ -63,7 +63,7 @@ def state_2(components, data):
 # 3 В крыльчатке может быть объект  
 def state_3(components, data):
   time.sleep(0.2)
-  if components['ir_sensors'].is_hand():
+  if components['ir_sensors'].hand():
     return 1, 2
   img = components['camera'].get_img()
   if components['camera'].is_object_blue(img, show=False, debug=False):
@@ -73,7 +73,7 @@ def state_3(components, data):
 
 # 4 Проверка веса 
 def state_4(components, data):
-  if components['ir_sensors'].is_hand():
+  if components['ir_sensors'].hand():
     return 1, 2
   if components['weight'].is_heavy():
     return 1, 14
@@ -83,7 +83,7 @@ def state_4(components, data):
 def state_5(components, data):
   components['light'].color_preset('white', 100)
   time.sleep(0.2)
-  if components['ir_sensors'].is_hand():
+  if components['ir_sensors'].hand():
     return 1, 2
   for i in range(5):
     img = components['camera'].get_img()
@@ -120,7 +120,7 @@ def state_6(components, data):
 
   t = time.time()
   while components['rotator'].working:
-    if components['ir_sensors'].is_hand():
+    if components['ir_sensors'].hand():
       return 1, 16 
     if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
       return 1, 20
@@ -144,38 +144,3 @@ def state_9(components, data):
   print(data['user_id'])
   return 1, 1 
 
-
-
-
-
-if __name__ == '__main__':
-  import sys
-  path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
-  sys.path.insert(0, path)
-  #import config.config as cf
-  components = cf.components
-  for key, value in states.items():
-    try:
-      value(components, None)
-    except Exception as e:
-      print(key, e)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
