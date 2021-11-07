@@ -31,6 +31,11 @@ def state_1(components, data):
     components['monitor'].set_points(data['points'], 0)
     components['monitor'].state(9)
 
+    data['user_id'] = components['scaner'].get_code()
+
+    if data['user_id'] != None:
+      return 1, 9
+
   if components['ir_sensors'].hand():
     return 1, 2
 
@@ -129,6 +134,7 @@ def state_6(components, data):
 # 7 Добавление баллов
 def state_7(components, data):
   data['points'] += data['add_points']
+  components['scaner'].start()
   return 1, 8
 
 # 8 Запуск сминателя

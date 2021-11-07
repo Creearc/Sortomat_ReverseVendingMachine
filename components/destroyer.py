@@ -29,6 +29,7 @@ class Destroyer:
     self.reverse_time = 0
     self.working_time = 20
     self.reverse_working_time = 3
+    self.reverse_count = 0
 
     self.end_time = time.time()
 
@@ -88,6 +89,7 @@ class Destroyer:
     while True:
       if self.command == 'forward':
         print('[Destroyer] Command -> Forward')
+        self.reverse_count = 0
         self.forward()
         self.end_time = time.time() + self.working_time
         with self.lock:
@@ -105,6 +107,7 @@ class Destroyer:
           with self.lock:
             self.command = 'backward'
           print('[Destroyer] -> Low speed!')
+          self.reverse_count += 1
         else:
           with self.lock:
             self.command = 'wait'

@@ -42,8 +42,8 @@ if __name__ == '__main__':
       pass
         
   except KeyboardInterrupt:
-  s.stop_destroyer()
-  GPIO.cleanup()
-  print("_______________________________________________________________")
-  print("[MAIN_THREAD] Завершение работы")
-  sys.exit()
+    components['destroyer'].stop_destroyer()
+    GPIO.cleanup()
+    print("_______________________________________________________________")
+    print("[MAIN_THREAD] Завершение работы")
+    sys.exit()
