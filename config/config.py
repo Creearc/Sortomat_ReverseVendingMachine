@@ -1,7 +1,7 @@
 import sys
-path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
-sys.path.insert(0, path)
-
+##path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
+##sys.path.insert(0, path)
+path = sys.path[0].replace('\\', '/')
 print(path)
 
 print('[CONFIG] Начало')
