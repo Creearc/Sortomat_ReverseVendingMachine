@@ -41,51 +41,50 @@ print('[CONFIG] Нейронные сети готовы')
 print('[CONFIG] Загрузка компонента монитора')
 from components import monitor
 #m = monitor.Monitor(1366, 768)
-m = monitor.Monitor(1280, 1024)
-m.start()
-m.state(0)
+components['monitor'] = monitor.Monitor(1280, 1024)
+components['monitor'].start()
+components['monitor'].state(0)
 print('[CONFIG] Монитор готов')
 
 print('[CONFIG] Подготовка освещения')
 from components import light
-l = light.Light()
-l.color_preset('blue')
+components['light'] = light.Light()
+components['light'].color_preset('blue')
 print('[CONFIG] Освещение готово')
 
 print('[CONFIG] Подготовка крыльчатки')
 from components import rotator
-r = rotator.Rotator()
-r.calibrate()
+components['rotator'] = rotator.Rotator()
 print('[CONFIG] Крыльчатка готова')
 
 
 print('[CONFIG] Подготовка ИК датчиков')
 from components import ir_sensors
-ir = ir_sensors.IR_sensors()
+components['ir_sensors']  = ir_sensors.IR_sensors()
 print('[CONFIG] ИК датчики готовы')
 
 
 print('[CONFIG] Подготовка УЗ датчика')
 from components import us_sensors
-us = us_sensors.US_sensor_Storage()
+components['us_sensor'] = us_sensors.US_sensor_Storage()
 print('[CONFIG] УЗ датчик готов')
 
 print('[CONFIG] Подготовка сминателя')
 from components import destroyer
-s = destroyer.Destroyer()
-s.start()
+components['destroyer'] = destroyer.Destroyer()
+components['destroyer'].start()
 print('[CONFIG] Сминатель готов')
 
 print('[CONFIG] Подготовка датчика веса')
 from components import weight
-w = weight.Weight()
+components['weight'] = None#weight.Weight()
 print('[CONFIG] Датчик веса готов')
 
 
 print('[CONFIG] Подготовка камеры')
 from components import camera
-c = camera.Camera()
-c.start()
+components['camera'] = camera.Camera()
+components['camera'].start()
 print('[CONFIG] Камера готова')
 
 
