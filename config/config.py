@@ -93,7 +93,7 @@ components['camera'].start()
 print('[CONFIG] Камера готова')
 
 print('[CONFIG] Подготовка сканера кодов')
-from components import camera
+from components import barcode_scaner
 components['scaner'] = barcode_scaner.Scaner()
 print('[CONFIG] Сканер кодов готов')
 
