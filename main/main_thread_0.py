@@ -26,3 +26,12 @@ data['hand_detection_time'] = 0
 data['save_path'] = '{}/{}'.format(components['SAVE_PATH'],
                                    len(os.listdir(components['SAVE_PATH'])))
 data['user_id'] = 0
+
+
+
+if __name__ == '__main__':
+  for key, value in states.items():
+    try:
+      value(components, None)
+    except Exception as e:
+      print(e)
