@@ -1,14 +1,17 @@
 
-
+import os
 import sys
 path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 sys.path.insert(0, path)
 
 from config import config
-
+components = config.components
 print('[MAIN_THREAD] Компоненты готовы')
 
-components = config.components
+sys.path.insert(0, path)
+from config import stable_states
+
+states = stable_states.states
 
 data = dict()
 data['state'] = 0 
