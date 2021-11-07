@@ -12,7 +12,12 @@ components = dict()
 
 
 
-
+components['ROTATOR_CALIBRATION_TIME'] = 10.0
+components['CHECK_TIME'] = 1.5
+components['FALSE_THINGS_COUNT'] = 5
+components['HAND_DETECTION_TIME_LIMIT_SMALL'] = 60.0
+components['SAVE_PATH'] = 'data'
+components['SPECIAL'] = 'al__Other'
 
 
 print('[CONFIG] Загрузка компонента монитора')
@@ -31,6 +36,7 @@ print('[CONFIG] Освещение готово')
 
 print('[CONFIG] Загрузка нейронных сетей')
 from components.neural_network import roi_function
+components['make_roi'] = lambda img : roi_function.roi(img)
 
 sys.path.insert(0, '{}/components/neural_network'.format(path))
 from model_component import Model

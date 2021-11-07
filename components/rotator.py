@@ -39,7 +39,7 @@ class Rotator:
   # Калибровка крыльчатки
   def calibrate(self):
     if GPIO.input(self.ROTATOR_OPTICAL_PIN) == 1:
-      print('[Rotator] Calibrating start')
+      print('[ROTATOR] Калибровка крыльчатки')
       if self.left:
         GPIO.output(self.DIR_PIN, GPIO.LOW)
       else:
@@ -51,7 +51,7 @@ class Rotator:
 
   # Запуск крыльчатки
   def start(self):
-    print('[Rotator] Started')
+    print('[ROTATOR] Крыльчатка запущена')
     if self.left:
       GPIO.output(self.DIR_PIN, GPIO.LOW)
     else:
@@ -68,7 +68,7 @@ class Rotator:
   def stop(self):
     self.process.stop()
     self.working = False
-    print('[Rotator] Stoped')
+    print('[ROTATOR] Крыльчатка остановлена')
 
   # Оптический датчик
   def optical_sensor(self, channel):
