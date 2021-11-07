@@ -32,6 +32,6 @@ data['user_id'] = 0
 if __name__ == '__main__':
   for key, value in states.items():
     try:
-      value(components, None)
+      value(components, data)
     except Exception as e:
       print(e)
