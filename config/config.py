@@ -40,7 +40,8 @@ print('[CONFIG] Нейронные сети готовы')
 
 print('[CONFIG] Загрузка компонента монитора')
 from components import monitor
-m = monitor.Monitor(1366, 768)
+#m = monitor.Monitor(1366, 768)
+m = monitor.Monitor(1280, 1024)
 m.start()
 m.state(0)
 print('[CONFIG] Монитор готов')
