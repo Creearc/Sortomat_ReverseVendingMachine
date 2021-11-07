@@ -1,3 +1,4 @@
+import RPi.GPIO as GPIO
 import sys
 ##path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 ##sys.path.insert(0, path)
@@ -6,6 +7,7 @@ print(path)
 
 print('[CONFIG] Начало')
 
+GPIO.cleanup()
 components = dict()
 
 
