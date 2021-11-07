@@ -1,3 +1,28 @@
+import threading
+
+class Scaner:
+  def __init__(self):
+    self.lock = threading.Lock()
+    self.code = None
+    self.thrd = threading.Thread(target=self.process, args=())
+
+  def get_code(self):
+    with self.lock:
+      code = self.code
+      if self.code != None:
+        self.code == None
+    return None
+    
+
+  def start(self):
+    if not self.thrd.is_alive():
+      self.thrd.start()
+
+  def process(self): 
+    code = read()
+    with self.lock:
+      self.code = code
+  
 def read():
   out = ''
   last = 0
@@ -24,6 +49,12 @@ def read():
 
 
 if __name__ == '__main__':
+  s = Scaner()
   print('Reading')
+  s.start()
   while True:
-    print(read())
+    print(1)
+    code = s.get_code()
+    if code != None:
+      print(code)
+    time.sleep(0.2)
