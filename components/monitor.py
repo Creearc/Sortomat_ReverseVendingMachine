@@ -31,7 +31,7 @@ class Monitor:
     self.clock = pygame.time.Clock()
     pygame.mouse.set_visible(False)
     
-    self.PATH = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-2])
+    self.PATH = sys.path[0].replace('\\', '/')#'/'.join(sys.path[0].replace('\\', '/').split('/')[:-2])
     self.img_state = Value('i', 0)
     self.process = Process(target=self.monitor_process, args=())
     self.timeout = Value('i', 0)
