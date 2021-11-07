@@ -1,4 +1,5 @@
 import threading
+impor ttime
 
 class Scaner:
   def __init__(self):
