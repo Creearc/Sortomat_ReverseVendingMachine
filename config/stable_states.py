@@ -152,8 +152,8 @@ if __name__ == '__main__':
   import sys
   path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
   sys.path.insert(0, path)
-  from config import config
-  components = config.components
+  import config.config as cf
+  components = cf.components
   for key, value in states.items():
     try:
       value(components, None)
