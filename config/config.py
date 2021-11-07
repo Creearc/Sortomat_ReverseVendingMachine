@@ -15,7 +15,19 @@ components = dict()
 
 
 
+print('[CONFIG] Загрузка компонента монитора')
+from components import monitor
+#m = monitor.Monitor(1366, 768)
+components['monitor'] = monitor.Monitor(1280, 1024)
+components['monitor'].start()
+components['monitor'].state(0)
+print('[CONFIG] Монитор готов')
 
+print('[CONFIG] Подготовка освещения')
+from components import light
+components['light'] = light.Light()
+components['light'].color_preset('blue')
+print('[CONFIG] Освещение готово')
 
 print('[CONFIG] Загрузка нейронных сетей')
 from components.neural_network import roi_function
@@ -40,20 +52,6 @@ model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
 
 print('[CONFIG] Нейронные сети готовы')
 
-print('[CONFIG] Загрузка компонента монитора')
-from components import monitor
-#m = monitor.Monitor(1366, 768)
-components['monitor'] = monitor.Monitor(1280, 1024)
-components['monitor'].start()
-components['monitor'].state(0)
-print('[CONFIG] Монитор готов')
-
-print('[CONFIG] Подготовка освещения')
-from components import light
-components['light'] = light.Light()
-components['light'].color_preset('blue')
-print('[CONFIG] Освещение готово')
-
 print('[CONFIG] Подготовка крыльчатки')
 from components import rotator
 components['rotator'] = rotator.Rotator()
@@ -64,7 +62,6 @@ print('[CONFIG] Подготовка ИК датчиков')
 from components import ir_sensors
 components['ir_sensors']  = ir_sensors.IR_sensors()
 print('[CONFIG] ИК датчики готовы')
-
 
 print('[CONFIG] Подготовка УЗ датчика')
 from components import us_sensors
