@@ -35,17 +35,17 @@ from components.neural_network import roi_function
 sys.path.insert(0, '{}/components/neural_network'.format(path))
 from model_component import Model
 
-model1 = Model("{}/components/neural_network/models/model_full_7classes_13may.tflite".format(path))
-model1.debug = False
-model1.input_shape = (512, 297, 3)
-model1.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
+components['nn_1'] = Model("{}/components/neural_network/models/model_full_7classes_13may.tflite".format(path))
+components['nn_1'].debug = False
+components['nn_1'].input_shape = (512, 297, 3)
+components['nn_1'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                  'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
                  'pet__Green', 'pet__Transparent']
 
-model2 = Model("{}/components/neural_network/models/model_roi_7classes_13may.tflite".format(path))
-model2.debug = False
-model2.input_shape = (448, 224, 3)
-model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
+components['nn_2'] = Model("{}/components/neural_network/models/model_roi_7classes_13may.tflite".format(path))
+components['nn_2'].debug = False
+components['nn_2'].input_shape = (448, 224, 3)
+components['nn_2'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                  'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
                  'pet__Green', 'pet__Transparent']
 
