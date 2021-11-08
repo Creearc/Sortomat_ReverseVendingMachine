@@ -28,7 +28,7 @@ def read():
   out = ''
   last = 0
   counter = 0 
-  with open('/dev/usb/hiddev0', 'rb') as f:
+  with open('/dev/usb/hiddev1', 'rb') as f:
     while True:
       tmp = f.read(8)
       try:
