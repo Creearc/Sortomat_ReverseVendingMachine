@@ -21,6 +21,7 @@ class Scaner:
 
   def process(self): 
     code = read()
+    print(code)
     with self.lock:
       self.code = code
   
