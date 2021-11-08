@@ -18,6 +18,7 @@ class Scaner:
   def start(self):
     if not self.thrd.is_alive():
       print('[BARCODE_SCANER] Запущено сканирование')
+      self.thrd = threading.Thread(target=self.process, args=())
       self.thrd.start()
     else:
       print('[BARCODE_SCANER] Cканирование уже запущено')
