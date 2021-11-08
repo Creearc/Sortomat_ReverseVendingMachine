@@ -11,7 +11,7 @@ class Scaner:
     with self.lock:
       code = self.code
       if self.code != None:
-        self.code == None
+        self.code = None
     return code
     
 
