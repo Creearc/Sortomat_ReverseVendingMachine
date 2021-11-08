@@ -59,4 +59,5 @@ if __name__ == '__main__':
     code = s.get_code()
     if code != None:
       print(code)
+      s.start()
     time.sleep(0.2)
