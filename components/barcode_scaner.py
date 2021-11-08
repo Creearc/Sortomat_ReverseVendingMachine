@@ -17,13 +17,17 @@ class Scaner:
 
   def start(self):
     if not self.thrd.is_alive():
+      print('[BARCODE_SCANER] Запущено сканирование')
       self.thrd.start()
+    else:
+      print('[BARCODE_SCANER] Cканирование уже запущено')
 
   def process(self): 
     code = read()
     print(code)
     with self.lock:
       self.code = code
+    print('[BARCODE_SCANER] Cканирование завершено')
   
 def read():
   out = ''
