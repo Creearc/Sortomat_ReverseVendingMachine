@@ -12,7 +12,7 @@ class Scaner:
       code = self.code
       if self.code != None:
         self.code == None
-    return None
+    return code
     
 
   def start(self):
@@ -25,7 +25,6 @@ class Scaner:
 
   def process(self): 
     code = read()
-    print(code)
     with self.lock:
       self.code = code
     print('[BARCODE_SCANER] Cканирование завершено')
