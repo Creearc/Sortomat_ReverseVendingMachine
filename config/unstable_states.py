@@ -1,15 +1,15 @@
 import time
 
-states = {0 : lambda components, data : state_0(components, data),
-          1 : lambda components, data : state_1(components, data),
-          2 : lambda components, data : state_2(components, data),
-          3 : lambda components, data : state_3(components, data),
-          4 : lambda components, data : state_4(components, data),
-          5 : lambda components, data : state_5(components, data),
-          6 : lambda components, data : state_6(components, data),
-          7 : lambda components, data : state_7(components, data),
-          8 : lambda components, data : state_8(components, data),
-          9 : lambda components, data : state_9(components, data),
+states = {10 : lambda components, data : state_10(components, data),
+          11 : lambda components, data : state_11(components, data),
+          12 : lambda components, data : state_12(components, data),
+          13 : lambda components, data : state_13(components, data),
+          14 : lambda components, data : state_14(components, data),
+          15 : lambda components, data : state_15(components, data),
+          16 : lambda components, data : state_16(components, data),
+          17 : lambda components, data : state_17(components, data),
+          18 : lambda components, data : state_18(components, data),
+          19 : lambda components, data : state_19(components, data),
            }
 
 def state_10(components, data):
@@ -44,4 +44,24 @@ def state_13(components, data):
 
 
 def state_14(components, data):
+  pass
+
+
+def state_15(components, data):
+  pass
+
+
+def state_16(components, data):
+  pass
+
+
+def state_17(components, data):
+  pass
+
+
+def state_18(components, data):
+  pass
+
+
+def state_19(components, data):
   pass
