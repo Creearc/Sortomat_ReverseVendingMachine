@@ -41,7 +41,14 @@ if __name__ == '__main__':
         except Exception as e:
           print(e)
     else:
-      pass
+      while True:
+        data['state_changed'] =  data['old_state'] != data['state']
+        data['old_state'] = data['state']
+        code, data['state'] = states[data['state']](components, data)
+        if code == 0:
+          components['monitor'].state(0)
+          print("[MAIN_THREAD] Ошибка номер {}".format(data['state']))
+          break
         
   except KeyboardInterrupt:
     components['destroyer'].stop_destroyer()
