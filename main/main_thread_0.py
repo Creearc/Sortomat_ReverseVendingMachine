@@ -18,7 +18,7 @@ states.update(unstable_states.states)
 data = dict()
 data['state'] = 0 
 data['old_state'] = 0 
-data['next_state'] = 0 
+data['next_state'] = -1 
 data['state_changed'] = False
 data['check_time'] = 0 
 data['false_things_counter'] = 0 

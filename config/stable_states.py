@@ -17,7 +17,7 @@ def state_0(components, data):
   components['rotator'].calibrate()
   while components['rotator'].working:
     if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
-      return 0, -4
+      return 0, 4
 
   return 1, 1 # Error code, next state
 
@@ -63,6 +63,7 @@ def state_2(components, data):
   if not components['ir_sensors'].hand():
     return 1, 3
   if time.time() - data['hand_detection_time'] > components['HAND_DETECTION_TIME_LIMIT_SMALL']:
+    data['next_state'] = 3
     return 1, 999
   
 # 3 В крыльчатке может быть объект  
@@ -108,14 +109,15 @@ def state_5(components, data):
                                  ' '.join(results)), img)
   if results.count(components['SPECIAL']) == 3:
     data['add_points'] = 1
-    components['rotator'].lert = False
+    components['rotator'].left = False
     components['destroyer'].use = False
     return 1, 6
   if results.count('Other__Other2') == 0 and results.count('empty_Empty') == 0:
     data['add_points'] = 1
-    components['rotator'].lert = True
+    components['rotator'].left = True
     components['destroyer'].use = True
     return 1, 6
+    
   return 1, 15
 
 # 6 Запуск крыльчатки
@@ -127,8 +129,10 @@ def state_6(components, data):
   t = time.time()
   while components['rotator'].working:
     if components['ir_sensors'].hand():
+      components['rotator'].stop()
       return 1, 16 
     if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
+      components['rotator'].stop()
       return 1, 20
   return 1, 7 
 
