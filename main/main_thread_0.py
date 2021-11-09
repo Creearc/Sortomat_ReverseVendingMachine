@@ -10,8 +10,10 @@ print('[MAIN_THREAD] Компоненты готовы')
 
 sys.path.insert(0, path)
 from config import stable_states
+from config import unstable_states
 
 states = stable_states.states
+states.update(unstable_states.states)
 
 data = dict()
 data['state'] = 0 

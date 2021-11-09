@@ -49,7 +49,7 @@ def state_1(components, data):
 
   is_critical, is_Full = components['us_sensor'].is_Full()
   if is_critical and is_Full:
-    return 0, 12
+    return 1, 12
   
   elif is_Full:
     return 1, 11
@@ -86,6 +86,7 @@ def state_4(components, data):
 
 # 5 Распознавание объекта
 def state_5(components, data):
+  data['false_things_counter'] = 0
   components['light'].color_preset('white', 100)
   time.sleep(0.2)
   if components['ir_sensors'].hand():
