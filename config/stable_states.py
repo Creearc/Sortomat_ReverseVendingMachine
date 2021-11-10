@@ -1,4 +1,6 @@
 import time
+import cv2
+import os
 
 states = {0 : lambda components, data : state_0(components, data),
           1 : lambda components, data : state_1(components, data),
@@ -13,13 +15,14 @@ states = {0 : lambda components, data : state_0(components, data),
            }
 
 def state_0(components, data):
-  t = time.time()
-  components['rotator'].calibrate()
-  while components['rotator'].working:
-    if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
-      return 0, 4
-
-  return 1, 1 # Error code, next state
+  if data['state_changed']:
+    data['check_time'] = time.time()
+    components['rotator'].calibrate()
+  if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
+    return 0, 4
+  if not components['rotator'].working:
+    return 1, 1 # Error code, next state
+  return 1, 0
 
 # 1 Покой
 def state_1(components, data):
@@ -53,6 +56,7 @@ def state_1(components, data):
   
   elif is_Full:
     return 1, 11
+  return 1, 1
   
 # 2 Рука  
 def state_2(components, data): 
@@ -65,6 +69,7 @@ def state_2(components, data):
   if time.time() - data['hand_detection_time'] > components['HAND_DETECTION_TIME_LIMIT_SMALL']:
     data['next_state'] = 3
     return 1, 999
+  return 1, 2
   
 # 3 В крыльчатке может быть объект  
 def state_3(components, data):
@@ -103,7 +108,7 @@ def state_5(components, data):
   results.append(components['nn_1'].classify_images([out]))
   results.append(components['nn_2'].classify_images([out]))
 
-  print(results)
+  print('[STATE_5] results={}'.format(results))
   cv2.imwrite('{}/{}.png'.format(data['save_path'],
                                  len(os.listdir(data['save_path'])),
                                  ' '.join(results)), img)
@@ -122,19 +127,21 @@ def state_5(components, data):
 
 # 6 Запуск крыльчатки
 def state_6(components, data):
-  components['monitor'].state(3)
-  components['light'].color_preset('green')
-  components['rotator'].start()
+  if data['state_changed']:
+    components['monitor'].state(3)
+    components['light'].color_preset('green')
+    components['rotator'].start()
+    data['check_time'] = time.time()
 
-  t = time.time()
-  while components['rotator'].working:
-    if components['ir_sensors'].hand():
-      components['rotator'].stop()
-      return 1, 16 
-    if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
-      components['rotator'].stop()
-      return 1, 20
-  return 1, 7 
+  if components['ir_sensors'].hand():
+    components['rotator'].stop()
+    return 1, 16 
+  if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
+    components['rotator'].stop()
+    return 1, 20
+  if not components['rotator'].working:
+    return 1, 7
+  return 1, 6
 
 # 7 Добавление баллов
 def state_7(components, data):
@@ -151,7 +158,7 @@ def state_8(components, data):
 
 # 9 Запрос к сайту
 def state_9(components, data):
-  data['points'] = 0
-  print(data['user_id'])
+  print('[STATE_9] user_id={} points={}'.format(data['user_id'], data['points']))
+  data['points'] = 0 
   return 1, 1 
 

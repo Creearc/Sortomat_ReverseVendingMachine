@@ -26,19 +26,22 @@ def state_999(components, data):
     if data['destroyer_state'] != 'off':
       components['destroyer'].launch_destroyer()      
     return 1, data['next_state']
+  return 1, 999
   
 
 def state_10(components, data):
-  components['monitor'].state(5)
-  components['light'].color_preset('red')
-  data['false_things_counter'] += 1
+  if data['state_changed']:
+    components['monitor'].state(5)
+    components['light'].color_preset('red')
+    data['false_things_counter'] += 1
   if data['false_things_counter'] >= components['FALSE_THINGS_COUNT']:
     return 0, 2
   if components['ir_sensors'].hand():
     return 1, 2
   img = components['camera'].get_img()
-  if components['camera'].is_object_red(img, show=False, debug=False):
+  if not components['camera'].is_object_red(img, show=False, debug=False):
     return 1, 1
+  return 1, 10
 
 
 def state_11(components, data):
@@ -55,7 +58,7 @@ def state_12(components, data):
 
 def state_13(components, data):
   components['monitor'].state(4)
-  time.sleep(1.0)
+  time.sleep(2.0)
   return 1, 1
 
 
@@ -64,10 +67,11 @@ def state_14(components, data):
     components['monitor'].state(7)
     components['light'].color_preset('red')
   img = components['camera'].get_img()
-  if components['camera'].is_object_red(img, show=False, debug=False):
+  if not components['camera'].is_object_red(img, show=False, debug=False):
     return 1, 1    
   if components['ir_sensors'].hand():
-    return 1, 1
+    return 1, 2
+  return 1, 14
 
 
 def state_15(components, data):
@@ -75,10 +79,11 @@ def state_15(components, data):
     components['monitor'].state(4)
     components['light'].color_preset('red')
   img = components['camera'].get_img()
-  if components['camera'].is_object_red(img, show=False, debug=False):
+  if not components['camera'].is_object_red(img, show=False, debug=False):
     return 1, 1 
   if components['ir_sensors'].hand():
-    return 1, 1
+    return 1, 2
+  return 1, 15
 
 
 def state_16(components, data):
@@ -91,34 +96,41 @@ def state_16(components, data):
     return 1, 999
   if not components['ir_sensors'].hand():
     return 1, 17
+  return 1, 16
 
 
 def state_17(components, data):
-  components['rotator'].left = not components['rotator'].left
-  components['rotator'].start()
-  t = time.time()
-  while components['rotator'].working:
-    if components['ir_sensors'].hand():
-      components['rotator'].stop()
-      return 1, 16 
-    if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
-      components['rotator'].stop()
-      return 1, 18
-  return 1, 3 
+  if data['state_changed']:
+    components['rotator'].left = not components['rotator'].left
+    components['rotator'].start()
+    data['check_time'] = time.time()
+
+  if components['ir_sensors'].hand():
+    components['rotator'].stop()
+    return 1, 16 
+  if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
+    components['rotator'].stop()
+    return 1, 18
+  if not components['rotator'].working:
+    return 1, 3
+  return 1, 17
 
 
 def state_18(components, data):
-  components['rotator'].left = not components['rotator'].left
-  components['rotator'].start()
-  t = time.time()
-  while components['rotator'].working:
-    if components['ir_sensors'].hand():
-      components['rotator'].stop()
-      return 1, 19 
-    if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
-      components['rotator'].stop()
-      return 0, 4
-  return 1, 8
+  if data['state_changed']:
+    components['rotator'].left = not components['rotator'].left
+    components['rotator'].start()
+    data['check_time'] = time.time()
+    
+  if components['ir_sensors'].hand():
+    components['rotator'].stop()
+    return 1, 19 
+  if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
+    components['rotator'].stop()
+    return 0, 4
+  if not components['rotator'].working:
+    return 1, 8
+  return 1, 18
 
 
 def state_19(components, data):
@@ -129,20 +141,24 @@ def state_19(components, data):
     return 1, 999
   if not components['ir_sensors'].hand():
     return 1, 18
+  return 1, 19
 
 
 def state_20(components, data):
-  components['rotator'].left = not components['rotator'].left
-  components['rotator'].start()
-  t = time.time()
-  while components['rotator'].working:
-    if components['ir_sensors'].hand():
-      components['rotator'].stop()
-      return 1, 21
-    if time.time() - t > components['ROTATOR_CALIBRATION_TIME']:
-      components['rotator'].stop()
-      return 0, 4
-  return 1, 3
+  if data['state_changed']:
+    components['rotator'].left = not components['rotator'].left
+    components['rotator'].start()
+    data['check_time'] = time.time()
+
+  if components['ir_sensors'].hand():
+    components['rotator'].stop()
+    return 1, 21
+  if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
+    components['rotator'].stop()
+    return 0, 4
+  if not components['rotator'].working:
+    return 1, 3
+  return 1, 20
 
 
 def state_21(components, data):
@@ -153,3 +169,4 @@ def state_21(components, data):
     return 1, 999
   if not components['ir_sensors'].hand():
     return 1, 20
+  return 1, 21

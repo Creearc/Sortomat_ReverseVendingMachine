@@ -30,6 +30,7 @@ class Destroyer:
     self.working_time = 20
     self.reverse_working_time = 3
     self.reverse_count = 0
+    self.stop_function = lambda : None
 
     self.end_time = time.time()
 
@@ -125,6 +126,10 @@ class Destroyer:
       if (self.end_time - time.time() < 0 or self.direction == 'stop') and self.direction == 'forward':
         self.stop()
         self.direction = 'off'
+
+      if self.reverse_count > 3:
+        self.stop()
+        self.stop_function(5)
 
       #print(self.command, self.direction)
 

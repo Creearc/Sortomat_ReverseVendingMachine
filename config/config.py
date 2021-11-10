@@ -23,8 +23,7 @@ components['SPECIAL'] = 'al__Other'
 
 print('[CONFIG] Загрузка компонента монитора')
 from components import monitor
-#m = monitor.Monitor(1366, 768)
-components['monitor'] = monitor.Monitor(1280, 1024)
+components['monitor'] = monitor.Monitor(1366, 768)
 components['monitor'].start()
 components['monitor'].state(0)
 print('[CONFIG] Монитор готов')
@@ -64,6 +63,10 @@ from components import rotator
 components['rotator'] = rotator.Rotator()
 print('[CONFIG] Крыльчатка готова')
 
+print('[CONFIG] Подготовка датчиков дверей')
+from components import door_sensors       
+components['door_sensors'] = door_sensors.Door_sensors()
+print('[CONFIG] Датчики дверей готовы')
 
 print('[CONFIG] Подготовка ИК датчиков')
 from components import ir_sensors
@@ -83,7 +86,7 @@ print('[CONFIG] Сминатель готов')
 
 print('[CONFIG] Подготовка датчика веса')
 from components import weight
-components['weight'] = None#weight.Weight()
+components['weight'] = weight.Weight()
 print('[CONFIG] Датчик веса готов')
 
 
