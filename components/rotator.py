@@ -7,7 +7,7 @@ GPIO.setmode(GPIO.BCM)
 
 
 class Rotator:
-  def __init__(self, STEP_PIN=24, DIR_PIN=23,
+  def __init__(self, STEP_PIN=24, DIR_PIN=22,
                ROTATOR_OPTICAL_PIN=16):
 
     ### Пины
