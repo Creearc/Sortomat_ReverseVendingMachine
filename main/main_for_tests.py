@@ -41,6 +41,34 @@ model2.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                  'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
                  'pet__Green', 'pet__Transparent']
 
+mode21 = Model("model_full224x448_7cl_august.tflite")
+mode21.debug = False
+mode21.input_shape = (448, 224, 3)
+mode21.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
+                 'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
+                 'pet__Green', 'pet__Transparent']
+
+mode22 = Model("model_full297x512_7cl_august.tflite")
+mode22.debug = False
+mode22.input_shape = (512, 297, 3)
+mode22.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
+                 'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
+                 'pet__Green', 'pet__Transparent']
+
+mode23 = Model("model_roi224x448_7cl_august.tflite")
+mode23.debug = False
+mode23.input_shape = (448, 224, 3)
+mode23.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
+                 'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
+                 'pet__Green', 'pet__Transparent']
+
+mode24 = Model("model_roi297x512_7cl_august.tflite")
+mode24.debug = False
+mode24.input_shape = (512, 297, 3)
+mode24.labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
+                 'Other__Other2', 'pet__Brown', 'pet__ChemOilMilk',
+                 'pet__Green', 'pet__Transparent']
+
 if not os.path.exists('data'):
   os.mkdir('data')
 
@@ -214,7 +242,19 @@ try:
         result_roi_1 = model1.classify_images([out])
         result_roi_2 = model2.classify_images([out])
 
-        results = [result_1, result_roi_1, result_roi_2]
+        result_21 = mode21.classify_images([img[150:610, 80:1020]])
+        result_22 = mode22.classify_images([img[150:610, 80:1020]])
+        result_23 = mode23.classify_images([img[150:610, 80:1020]])
+        result_24 = mode24.classify_images([img[150:610, 80:1020]])
+
+        result_21_r = mode21.classify_images([out])
+        result_22_r = mode22.classify_images([out])
+        result_23_r = mode23.classify_images([out])
+        result_24_r = mode24.classify_images([out])
+
+        results = [result_1, result_roi_1, result_roi_2,
+                   result_21, result_22, result_22, result_24,
+                   result_21_r, result_22_r, result_23_r, result_24_r]
         print(results)
         
         if 'Other__Other2' in results or 'empty_Empty' in results:
@@ -232,9 +272,9 @@ try:
         cv2.imwrite('{}/{}.png'.format(save_path, len(os.listdir(save_path)), ' '.join(results)), img)
         
         if ai_answer == 0:
-          r.start()
+          #r.start()
           m.state(3)
-          machine_state = 5
+          machine_state = 7
         else:
           m.state(4)
           machine_state = -1
