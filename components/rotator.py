@@ -83,8 +83,9 @@ class Rotator:
 if __name__ == '__main__':
   try:
     r = Rotator()
+    r.start()
     while True:
-      r.start()
+      
       time.sleep(3.0)
       #r.stop()
         
