@@ -50,9 +50,9 @@ def state_1(components, data):
     else:
       components['weight'].set_null()
 
-  is_critical, is_Full = components['us_sensor'].is_Full()
-  if is_critical and is_Full:
-    return 1, 12
+##  is_critical, is_Full = components['us_sensor'].is_Full()
+##  if is_critical and is_Full:
+##    return 1, 12
   
   elif is_Full:
     return 1, 11
