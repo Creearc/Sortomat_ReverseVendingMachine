@@ -7,7 +7,7 @@ GPIO.setmode(GPIO.BCM)
 
 
 class Light:
-  def __init__(self, BLUE_PIN=2, RED_PIN=3, GREEN_PIN=4, WHITE_PIN=17):
+  def __init__(self, BLUE_PIN=2, RED_PIN=3, GREEN_PIN=17, WHITE_PIN=4):
     ### Пины
     # Синий цвет
     self.BLUE_PIN = BLUE_PIN
