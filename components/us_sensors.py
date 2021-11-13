@@ -106,8 +106,9 @@ class US_sensor_Storage(US_sensor):
       self.storage_state = False
           
     if self.storage_state:
-      self.full_state += 1
-      return self.full_state == len(self.FULL_DISTANCE), True
+      if self.full_state < len(self.FULL_DISTANCE) - 1:
+        self.full_state += 1
+      return self.full_state == len(self.FULL_DISTANCE) - 1, True
     else:
       return False, False
 
