@@ -149,10 +149,9 @@ class Destroyer:
 
 if __name__ == '__main__':
   try:
-##    d = Destroyer()
-##    d.start()
-##    d.launch_destroyer()
-    GPIO.output(d.FORWARD_PIN, GPIO.HIGH)
+    d = Destroyer()
+    d.start()
+    d.launch_destroyer()
   except KeyboardInterrupt:
     GPIO.output(self.POWER_PIN, GPIO.LOW)
     time.sleep(1.0)
