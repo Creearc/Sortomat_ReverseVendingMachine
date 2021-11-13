@@ -53,13 +53,18 @@ class IR_sensors:
     return any([GPIO.input(self.PIN_1), GPIO.input(self.PIN_2),
                 GPIO.input(self.PIN_3), GPIO.input(self.PIN_4)])
 
+  def show_all(self):
+    return [GPIO.input(self.PIN_1), GPIO.input(self.PIN_2),
+                GPIO.input(self.PIN_3), GPIO.input(self.PIN_4)]
+
 
 if __name__ == '__main__':
   try:
     ir = IR_sensors()
     while True:
       print(ir.hand())
-      time.sleep(1.0)
+      print(ir.show_all())
+      time.sleep(0.1)
   except KeyboardInterrupt:
     GPIO.cleanup()
     sys.exit()
