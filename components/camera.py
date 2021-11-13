@@ -97,7 +97,7 @@ class Camera:
     out = img[300 : 420, 200 : 980]
     out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
     old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-    out = adjust_gamma(out, 6.5)
+    #out = adjust_gamma(out, 6.5)
     out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
     out = cv2.GaussianBlur(out, (7, 7), 0)
     
