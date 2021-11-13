@@ -26,6 +26,7 @@ class Door_sensors:
 
 if __name__ == '__main__':
   d = Door_sensors()
+  # 0 - open 1 - close
   while True:
     print(GPIO.input(d.DOOR_UP_PIN),
           GPIO.input(d.DOOR_DOWN_PIN),

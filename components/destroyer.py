@@ -59,11 +59,13 @@ class Destroyer:
 
     print('[Destroyer] Forward')
     GPIO.output(self.FORWARD_PIN, GPIO.HIGH)
+    print('[Destroyer] Forward pin ON')
     time.sleep(1.0)
     
     self.direction = 'forward'
-    self.step_time = time.time()
+    self.step_time = time.time()    
     GPIO.output(self.POWER_PIN, GPIO.HIGH)
+    print('[Destroyer] Power pin ON')
 
 
   def backward(self):
@@ -147,9 +149,10 @@ class Destroyer:
 
 if __name__ == '__main__':
   try:
-    d = Destroyer()
-    d.start()
-    d.launch_destroyer()
+##    d = Destroyer()
+##    d.start()
+##    d.launch_destroyer()
+    GPIO.output(d.FORWARD_PIN, GPIO.HIGH)
   except KeyboardInterrupt:
     GPIO.output(self.POWER_PIN, GPIO.LOW)
     time.sleep(1.0)
