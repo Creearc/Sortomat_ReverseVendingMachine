@@ -13,11 +13,11 @@ class Door_sensors:
     self.stop_function = lambda x : None
     
     GPIO.setup(self.DOOR_UP_PIN, GPIO.IN)
-    GPIO.add_event_detect(self.DOOR_UP_PIN, GPIO.BOTH, callback=door_is_open)
+    GPIO.add_event_detect(self.DOOR_UP_PIN, GPIO.BOTH, callback=self.door_is_open)
     GPIO.setup(self.DOOR_DOWN_PIN, GPIO.IN)
-    GPIO.add_event_detect(self.DOOR_DOWN_PIN, GPIO.BOTH, callback=door_is_open)
+    GPIO.add_event_detect(self.DOOR_DOWN_PIN, GPIO.BOTH, callback=self.door_is_open)
     GPIO.setup(self.DOOR_BACK_PIN, GPIO.IN)
-    GPIO.add_event_detect(self.DOOR_BACK_PIN, GPIO.BOTH, callback=door_is_open)
+    GPIO.add_event_detect(self.DOOR_BACK_PIN, GPIO.BOTH, callback=self.door_is_open)
     
   def door_is_open(self):
     print('[DOOR_SENSOR] Дверь открыта!')
