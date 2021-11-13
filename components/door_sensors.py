@@ -27,15 +27,3 @@ def door_opened(channel):
   global up_door_state
   up_door_state = GPIO.input(DOOR_UP_PIN)
 
-
-
-up_door_state = 0
-
-GPIO.setup(DOOR_UP_PIN, GPIO.IN)
-GPIO.add_event_detect(DOOR_UP_PIN, GPIO.BOTH, callback=door_opened)
-
-while True:
-  print("{}".format(up_door_state))
-
-
-  time.sleep(0.05)
