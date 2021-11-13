@@ -129,7 +129,7 @@ if __name__ == '__main__':
   c.start()
   while True:
     img = c.get_img()
-    print(is_object_blue(img, True, True))
+    print(c.is_object_blue(img, True, True))
     #print(is_object_red(img, True, True))
 
     key = cv2.waitKey(1) & 0xFF
