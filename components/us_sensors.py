@@ -90,7 +90,7 @@ class US_sensor_Storage(US_sensor):
     self.FULL_DISTANCE = FULL_DISTANCE
     self.storage_state = False
 
-  def isFull(self):
+  def is_Full(self):
     self.check_measure(self.measure())
     f = True
     nf = True
