@@ -114,7 +114,7 @@ if __name__ == '__main__':
   try:
     d1 = US_sensor_Storage()
     while True:
-      print(d1.isFull())
+      print(d1.is_Full())
       print(d1.distance)
   except KeyboardInterrupt:
     GPIO.cleanup()

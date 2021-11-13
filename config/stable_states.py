@@ -54,8 +54,8 @@ def state_1(components, data):
 ##  if is_critical and is_Full:
 ##    return 1, 12
   
-  elif is_Full:
-    return 1, 11
+##  elif is_Full:
+##    return 1, 11
   return 1, 1
   
 # 2 Рука  
