@@ -85,7 +85,8 @@ if __name__ == '__main__':
     r = Rotator()
     r.start()
     while True:
-      
+      if not r.working:
+        r.start()
       time.sleep(3.0)
       #r.stop()
         
