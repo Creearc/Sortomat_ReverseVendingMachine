@@ -16,7 +16,7 @@ class US_sensor:
     
     # Переменные
     self.measures_count = measures_count
-    self.distance = [11.0 for i in range(measures_count)]
+    self.distance = [110.0 for i in range(measures_count)]
 
   # Измерение расстояния при помощи УЗ датчика
   def measure(self):
