@@ -23,7 +23,4 @@ class Door_sensors:
     print('[DOOR_SENSOR] Дверь открыта!')
     self.stop_function(-1)
 
-def door_opened(channel):
-  global up_door_state
-  up_door_state = GPIO.input(DOOR_UP_PIN)
 
