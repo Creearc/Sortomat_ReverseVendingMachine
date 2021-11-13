@@ -24,3 +24,10 @@ class Door_sensors:
     self.stop_function(-1)
 
 
+if __name__ == '__main__:
+  d = Door_sensors()
+  while True:
+    print(GPIO.input(d.DOOR_UP_PIN),
+          GPIO.input(d.DOOR_DOWN_PIN),
+          GPIO.input(d.DOOR_BACK_PIN))
+    
