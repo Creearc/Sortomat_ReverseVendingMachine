@@ -23,62 +23,7 @@ def adjust_gamma(image, gamma=1.0):
   return cv2.LUT(image, table)
 
 
-# Проверка наличия объекта на изображении
-def is_object_red(img, debug=False, show=False):
-  out = img[300 : 420, 200 : 980]
-  out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
-  old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-  out = adjust_gamma(out, 15.5)
-  out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-  out = cv2.GaussianBlur(out, (11, 11), 0)
-  
-  ret, out = cv2.threshold(out, 225, 255, cv2.THRESH_BINARY)
 
-  cnts = cv2.findContours(out, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-  cnts = imutils.grab_contours(cnts)
-  mx = 0
-  for cnt in cnts:
-    if cv2.contourArea(cnt) > mx:
-      mx = cv2.contourArea(cnt)
-      
-  if debug:
-    print('Max obj size {}'.format(mx))
-  if show:
-    cv2.imshow('is_object', np.vstack([out, old]))
-    cv2.waitKey(1)
-    
-  if mx > 100:
-    return True
-  else:
-    return False
-
-def is_object_blue(img, debug=False, show=False):
-  out = img[300 : 420, 200 : 980]
-  out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
-  old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-  out = adjust_gamma(out, 6.5)
-  out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-  out = cv2.GaussianBlur(out, (7, 7), 0)
-  
-  ret, out = cv2.threshold(out, 225, 255, cv2.THRESH_BINARY)
-
-  cnts = cv2.findContours(out, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-  cnts = imutils.grab_contours(cnts)
-  mx = 0
-  for cnt in cnts:
-    if cv2.contourArea(cnt) > mx:
-      mx = cv2.contourArea(cnt)
-      
-  if debug:
-    print('Max obj size {}'.format(mx))
-  if show:
-    cv2.imshow('is_object', np.vstack([out, old]))
-    cv2.waitKey(1)
-    
-  if mx > 10:
-    return True
-  else:
-    return False
 
 
 class Camera:
@@ -119,6 +64,62 @@ class Camera:
     c = Process(target=self.process, args=())
     c.start()
 
+  # Проверка наличия объекта на изображении
+  def is_object_red(self, img, debug=False, show=False):
+    out = img[300 : 420, 200 : 980]
+    out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
+    old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
+    out = adjust_gamma(out, 15.5)
+    out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
+    out = cv2.GaussianBlur(out, (11, 11), 0)
+    
+    ret, out = cv2.threshold(out, 225, 255, cv2.THRESH_BINARY)
+
+    cnts = cv2.findContours(out, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = imutils.grab_contours(cnts)
+    mx = 0
+    for cnt in cnts:
+      if cv2.contourArea(cnt) > mx:
+        mx = cv2.contourArea(cnt)
+        
+    if debug:
+      print('Max obj size {}'.format(mx))
+    if show:
+      cv2.imshow('is_object', np.vstack([out, old]))
+      cv2.waitKey(1)
+      
+    if mx > 100:
+      return True
+    else:
+      return False
+
+  def is_object_blue(self, img, debug=False, show=False):
+    out = img[300 : 420, 200 : 980]
+    out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
+    old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
+    out = adjust_gamma(out, 6.5)
+    out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
+    out = cv2.GaussianBlur(out, (7, 7), 0)
+    
+    ret, out = cv2.threshold(out, 225, 255, cv2.THRESH_BINARY)
+
+    cnts = cv2.findContours(out, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = imutils.grab_contours(cnts)
+    mx = 0
+    for cnt in cnts:
+      if cv2.contourArea(cnt) > mx:
+        mx = cv2.contourArea(cnt)
+        
+    if debug:
+      print('Max obj size {}'.format(mx))
+    if show:
+      cv2.imshow('is_object', np.vstack([out, old]))
+      cv2.waitKey(1)
+      
+    if mx > 10:
+      return True
+    else:
+      return False
 
 if __name__ == '__main__':
   import time
