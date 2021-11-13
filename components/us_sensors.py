@@ -83,11 +83,12 @@ class US_sensor_Hand(US_sensor):
 # Отсек приема
 class US_sensor_Storage(US_sensor): 
   def __init__(self, TRIGGER_PIN=7, ECHO_PIN=15,
-               FULL_DISTANCE=20, 
+               FULL_DISTANCE=[60, 40, 20],
                measures_count=20):
     super().__init__(TRIGGER_PIN, ECHO_PIN, measures_count)
 
     self.FULL_DISTANCE = FULL_DISTANCE
+    self.full_state = 0
     self.storage_state = False
 
   def is_Full(self):
@@ -95,7 +96,7 @@ class US_sensor_Storage(US_sensor):
     f = True
     nf = True
     for i in self.distance:
-      if i > self.FULL_DISTANCE:
+      if i > self.FULL_DISTANCE[self.full_state]:
         f = False
       else:
         nf = False
@@ -105,9 +106,10 @@ class US_sensor_Storage(US_sensor):
       self.storage_state = False
           
     if self.storage_state:
-      return True
+      self.full_state += 1
+      return self.full_state == len(self.FULL_DISTANCE), True
     else:
-      return False
+      return False, False
 
 
 if __name__ == '__main__':
