@@ -26,7 +26,7 @@ class Rotator:
 
     ### Переменные
     # Шаговый двигатель
-    self.frequency = 2000
+    self.frequency = 1000
     self.left = True
     self.working = False
     
