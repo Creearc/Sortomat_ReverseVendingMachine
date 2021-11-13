@@ -19,7 +19,7 @@ class Door_sensors:
     GPIO.setup(self.DOOR_BACK_PIN, GPIO.IN)
     GPIO.add_event_detect(self.DOOR_BACK_PIN, GPIO.BOTH, callback=self.door_is_open)
     
-  def door_is_open(self):
+  def door_is_open(self, channel):
     print('[DOOR_SENSOR] Дверь открыта!')
     self.stop_function(-1)
 
