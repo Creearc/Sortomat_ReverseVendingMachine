@@ -44,13 +44,14 @@ class Monitor:
     IMG_CLEAN_IT = self.load_image('clean_it.png')
     IMG_SAVED = self.load_image('saved.png')
     IMG_WEIGHT = self.load_image('weight.png')
-    IMG_QR = self.load_image('qr.png')
+    IMG_ERROR = self.load_image('error.png')
     IMG_POINTS = self.load_image('points.png')
-    IMG_GENERATION = self.load_image('generation.png')
+    IMG_DOORS = self.load_image('doors.png')
+    IMG_FULL = self.load_image('full.png')
     imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE,
             IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT,
-            IMG_QR, IMG_POINTS, IMG_GENERATION ]
-    self.img_state = 9
+            IMG_ERROR, IMG_POINTS, IMG_DOORS, IMG_FULL ]
+    self.img_state = 10
     self.points = 8
     self.timeout = 10
     while True:
@@ -59,21 +60,16 @@ class Monitor:
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state])
-      if self.points > 0:
-        write(self.timeout, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.73),
-              self.screen,
-              color=GREEN, size=90)
-        
+      if self.img_state == 9:       
         write(self.points, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.615),
               self.screen,
               color=LIGHT_BLUE, size=90)
-        
-      elif self.points < 0:
-        self.show_image(self.load_image('tmp.png'))
-        write(self.timeout, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.648),
+
+      if self.img_state == 8:       
+        write(self.points, int(self.WIDTH // 1.4), int(self.HEIGHT * 0.515),
               self.screen,
-              color=GREEN, size=90)
-        
+              color=DARK_BLUE, size=220)
+               
       pygame.display.flip()
       self.clock.tick(60)
       if not True:

@@ -52,7 +52,7 @@ def state_11(components, data):
 
 def state_12(components, data):
   components['light'].color_preset('red')
-  print('БАК ЗАПОЛНЕН!')
+  components['monitor'].state(11)
   return 0, 0
 
 

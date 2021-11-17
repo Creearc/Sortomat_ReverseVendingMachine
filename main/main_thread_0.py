@@ -4,14 +4,8 @@ import sys
 path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 sys.path.insert(0, path)
 
-test = not True
-test_config = not True
-
-if test_config:
-  from config import config_test as config
-else:
-  import RPi.GPIO as GPIO
-  from config import config
+import RPi.GPIO as GPIO
+from config import config
   
 components = config.components
 print('[MAIN_THREAD] Компоненты готовы')
@@ -53,6 +47,11 @@ class Main_thread:
   def stop(self, error_code):
     self.run = False
     data['error_code'] = error_code
+
+  def stop_by_ir(self, error_code):
+    self.run = False
+    data['error_code'] = error_code
+    components['monitor'].state(10) 
     
   def thread(self):
     while self.run:
@@ -71,25 +70,26 @@ class Main_thread:
     
 
 if __name__ == '__main__':
-  try:
-    if test:
-      for key, value in states.items():
-        print(key)
-        try:
-          value(components, data)
-        except Exception as e:
-          print(e)
-    else:
+  while True:
+    if components['door_sensors'].all_closed():
+      components['monitor'].state(0)
+      
       m = Main_thread()
-      components['door_sensors'].stop_function = lambda x : m.stop(x)
+      components['door_sensors'].stop_function = lambda x : m.stop_by_ir(x)
       components['destroyer'].stop_function = lambda x : m.stop(x)
       m.start()
+    else:
+      # 0 - storage is full  -1 - doors
+      if data['error_code'] < 1 or data['error_code'] or data['error_code'] is None:
+        time.sleep(0.1)
+      else:
+        break
 
-            
-  except Exception as e:
-    print("[MAIN_THREAD] {}".format(e))
-    
+  components['monitor'].set_points(data['error_code'])
+  components['monitor'].state(8) 
+                 
   components['destroyer'].stop_destroyer()
+  components['rotator'].stop()  
   if not test_config:
     GPIO.cleanup() 
   print("_______________________________________________________________")

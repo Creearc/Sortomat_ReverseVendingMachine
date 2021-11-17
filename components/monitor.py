@@ -47,32 +47,28 @@ class Monitor:
     IMG_CLEAN_IT = self.load_image('clean_it.png')
     IMG_SAVED = self.load_image('saved.png')
     IMG_WEIGHT = self.load_image('weight.png')
-    IMG_QR = self.load_image('qr.png')
+    IMG_ERROR = self.load_image('error.png')
     IMG_POINTS = self.load_image('points.png')
-    IMG_GENERATION = self.load_image('generation.png')
+    IMG_DOORS = self.load_image('doors.png')
+    IMG_FULL = self.load_image('full.png')
     imgs = [IMG_START, IMG_READY, IMG_HAND, IMG_BOTTLE,
             IMG_OTHER, IMG_CLEAN_IT, IMG_SAVED, IMG_WEIGHT,
-            IMG_QR, IMG_POINTS, IMG_GENERATION ]
+            IMG_ERROR, IMG_POINTS, IMG_DOORS, IMG_FULL ]
     while True:
       self.screen.fill((255, 255, 255))
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state.value])
-      if self.points.value > 0 and self.img_state.value == 9:
-        write(self.timeout.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.73),
-              self.screen,
-              color=GREEN, size=90)
-        
+      if self.img_state.value == 9:
         write(self.points.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.615),
               self.screen,
               color=LIGHT_BLUE, size=90)
         
-      elif self.points.value < 0 and self.img_state.value == 8:
-        self.show_image(self.load_image('tmp.png'))
-        write(self.timeout.value, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.648),
+      elif self.img_state.value == 8:
+        write(self.points, int(self.WIDTH // 1.4), int(self.HEIGHT * 0.515),
               self.screen,
-              color=GREEN, size=90)
+              color=DARK_BLUE, size=220)
         
       pygame.display.flip()
       self.clock.tick(60)
@@ -98,9 +94,8 @@ class Monitor:
   def state(self, s):
     self.img_state.value = s
 
-  def set_points(self, p, t):
+  def set_points(self, p):
     self.points.value = p
-    self.timeout.value = t
 
   # Загрузка изображения
   def load_image(self, path_to_img):

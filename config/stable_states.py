@@ -22,6 +22,7 @@ def state_0(components, data):
     return 0, 4
   if not components['rotator'].working:
     return 1, 1 # Error code, next state
+   
   return 1, 0
 
 # 1 Покой
@@ -31,7 +32,7 @@ def state_1(components, data):
     components['light'].color_preset('blue')
 
   if data['points'] > 0:
-    components['monitor'].set_points(data['points'], 0)
+    components['monitor'].set_points(data['points'])
     components['monitor'].state(9)
 
     data['user_id'] = components['scaner'].get_code()
@@ -159,6 +160,7 @@ def state_8(components, data):
 # 9 Запрос к сайту
 def state_9(components, data):
   print('[STATE_9] user_id={} points={}'.format(data['user_id'], data['points']))
-  data['points'] = 0 
+  data['points'] = 0
+  components['monitor'].set_points(0)
   return 1, 1 
 

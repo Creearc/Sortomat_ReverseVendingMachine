@@ -23,6 +23,11 @@ class Door_sensors:
     print('[DOOR_SENSOR] Дверь открыта! {}'.format(channel))
     self.stop_function(-1)
 
+  def all_closed(self):
+    return [GPIO.input(d.DOOR_UP_PIN),
+            GPIO.input(d.DOOR_DOWN_PIN),
+            GPIO.input(d.DOOR_BACK_PIN)].count(1) == 3
+
 
 if __name__ == '__main__':
   d = Door_sensors()
