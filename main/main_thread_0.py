@@ -64,6 +64,7 @@ class Main_thread:
       code, data['state'] = states[data['state']](components, data)
       if code == 0:
         data['error_code'] = data['state']
+        data['old_state'] = data['state']
         break
       
     print("[MAIN_THREAD] Ошибка номер {}".format(data['error_code']))
