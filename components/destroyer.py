@@ -104,6 +104,13 @@ class Destroyer:
         self.end_time = self.end_time + self.reverse_working_time
         with self.lock:
             self.command = 'wait'
+
+      elif self.command == 'stop':
+        print('[Destroyer] Command -> Stop')
+        self.stop()
+        self.direction = 'off'
+        with self.lock:
+            self.command = 'wait'
             
       if self.direction == 'forward':
         if time.time() - self.step_time > 1:
