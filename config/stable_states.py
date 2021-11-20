@@ -16,6 +16,7 @@ states = {0 : lambda components, data : state_0(components, data),
 
 def state_0(components, data):
   if data['state_changed']:
+    components['weight'].set_null()
     data['check_time'] = time.time()
     components['rotator'].calibrate()
   if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
@@ -152,6 +153,7 @@ def state_7(components, data):
 
 # 8 Запуск сминателя
 def state_8(components, data):
+  components['weight'].set_null()
   if components['destroyer'].use == True:
     components['destroyer'].launch_destroyer()
     data['check_time'] = time.time()
