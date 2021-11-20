@@ -66,7 +66,6 @@ class Main_thread:
         data['error_code'] = data['state']
         break
       
-    components['monitor'].state(0)
     print("[MAIN_THREAD] Ошибка номер {}".format(data['error_code']))
     
 
