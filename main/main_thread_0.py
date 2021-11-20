@@ -80,6 +80,8 @@ if __name__ == '__main__':
       components['door_sensors'].stop_function = lambda x : m.stop_by_ir(x)
       components['destroyer'].stop_function = lambda x : m.stop(x)
       m.start()
+      components['destroyer'].stop_destroyer()
+      components['rotator'].stop() 
     else:
       # 0 - storage is full  -1 - doors
       if data['error_code'] is None:
@@ -94,8 +96,7 @@ if __name__ == '__main__':
                  
   components['destroyer'].stop_destroyer()
   components['rotator'].stop()  
-  if not test_config:
-    GPIO.cleanup() 
+  GPIO.cleanup() 
   print("_______________________________________________________________")
   print("[MAIN_THREAD] Завершение работы")
   sys.exit()
