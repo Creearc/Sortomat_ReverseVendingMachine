@@ -24,9 +24,9 @@ class Door_sensors:
     self.stop_function(-1)
 
   def all_closed(self):
-    return [GPIO.input(d.DOOR_UP_PIN),
-            GPIO.input(d.DOOR_DOWN_PIN),
-            GPIO.input(d.DOOR_BACK_PIN)].count(1) == 3
+    return [GPIO.input(self.DOOR_UP_PIN),
+            GPIO.input(self.DOOR_DOWN_PIN),
+            GPIO.input(self.DOOR_BACK_PIN)].count(1) == 3
 
 
 if __name__ == '__main__':
