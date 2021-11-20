@@ -71,6 +71,7 @@ class Main_thread:
     
 
 if __name__ == '__main__':
+  components['monitor'].state(10) 
   while True:
     if components['door_sensors'].all_closed():
       components['monitor'].state(0)
