@@ -60,7 +60,8 @@ def state_1(components, data):
   return 1, 1
   
 # 2 Рука  
-def state_2(components, data): 
+def state_2(components, data):
+  time.sleep(0.05)
   if data['state_changed']:
     components['monitor'].state(2)
     components['light'].color_preset('blue')
@@ -74,7 +75,6 @@ def state_2(components, data):
   
 # 3 В крыльчатке может быть объект  
 def state_3(components, data):
-  time.sleep(0.2)
   if components['ir_sensors'].hand():
     return 1, 2
   img = components['camera'].get_img()
