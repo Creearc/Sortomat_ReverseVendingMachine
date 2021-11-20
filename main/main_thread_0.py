@@ -80,7 +80,9 @@ if __name__ == '__main__':
       m.start()
     else:
       # 0 - storage is full  -1 - doors
-      if data['error_code'] < 1 or data['error_code'] or data['error_code'] is None:
+      if data['error_code'] is None:
+        time.sleep(0.1)
+      elif data['error_code'] < 1:
         time.sleep(0.1)
       else:
         break
