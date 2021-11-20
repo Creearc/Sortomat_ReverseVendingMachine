@@ -80,8 +80,8 @@ if __name__ == '__main__':
       components['door_sensors'].stop_function = lambda x : m.stop_by_ir(x)
       components['destroyer'].stop_function = lambda x : m.stop(x)
       m.start()
-      components['destroyer'].stop_destroyer()
-      components['rotator'].stop() 
+      #components['destroyer'].stop_destroyer()
+      #components['rotator'].stop() 
     else:
       # 0 - storage is full  -1 - doors
       if data['error_code'] is None:
