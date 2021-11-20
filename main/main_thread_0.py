@@ -73,7 +73,7 @@ if __name__ == '__main__':
   components['monitor'].state(10) 
   while True:
     if components['door_sensors'].all_closed():
-      components['monitor'].state(0)
+      components['monitor'].state(1)
       
       m = Main_thread()
       components['door_sensors'].stop_function = lambda x : m.stop_by_ir(x)
