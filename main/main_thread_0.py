@@ -73,7 +73,8 @@ class Main_thread:
 if __name__ == '__main__':
   components['monitor'].state(10) 
   while True:
-    if components['door_sensors'].all_closed():
+    is_critical, is_Full = components['us_sensor'].is_Full()
+    if components['door_sensors'].all_closed() and not is_Full:
       components['monitor'].state(1)
       
       m = Main_thread()
