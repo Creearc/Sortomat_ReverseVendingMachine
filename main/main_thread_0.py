@@ -1,12 +1,20 @@
 import threading
+import argparse
+import importlib
 import time
 import os
 import sys
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-c", "--config", type=str, default='config')
+args = vars(ap.parse_args())
+
 path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 sys.path.insert(0, path)
 
 import RPi.GPIO as GPIO
-from config import config
+#from config import config
+config = importlib.import_module('config/{}'.format(args['config']))
   
 components = config.components
 print('[MAIN_THREAD] Компоненты готовы')
