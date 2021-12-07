@@ -10,11 +10,11 @@ ap.add_argument("-c", "--config", type=str, default='config')
 args = vars(ap.parse_args())
 
 path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
-sys.path.insert(0, path)
+sys.path.insert(0, 'config/{}'.format(path))
 
 import RPi.GPIO as GPIO
 #from config import config
-config = importlib.import_module('config/{}'.format(args['config']))
+config = importlib.import_module(args['config'])
   
 components = config.components
 print('[MAIN_THREAD] Компоненты готовы')
