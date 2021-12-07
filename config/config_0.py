@@ -66,8 +66,13 @@ components['rotator'] = rotator.Rotator()
 print('[CONFIG] Крыльчатка готова')
 
 print('[CONFIG] Подготовка датчиков дверей')
-from components import door_sensors       
-components['door_sensors'] = door_sensors.Door_sensors()
+class Door_sensors:
+  def __init__(self):
+    self.stop_function = lambda x : None
+  def all_closed(self):
+    return True
+        
+components['door_sensors'] = Door_sensors()
 print('[CONFIG] Датчики дверей готовы')
 
 print('[CONFIG] Подготовка ИК датчиков')
@@ -99,8 +104,16 @@ components['camera'].start()
 print('[CONFIG] Камера готова')
 
 print('[CONFIG] Подготовка сканера кодов')
-from components import barcode_scaner
-components['scaner'] = barcode_scaner.Scaner()
+class Scaner:
+  def __init__(self):
+    self.heavy = False
+    self.code = None
+  def start(self):
+    pass
+  def get_code(self):
+    return self.code
+  
+components['scaner'] = Scaner()
 print('[CONFIG] Сканер кодов готов')
 
 
