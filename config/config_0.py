@@ -1,3 +1,6 @@
+#export DISPLAY=":0" && python3 main_thread_0.py
+
+
 import RPi.GPIO as GPIO
 import sys
 ##path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
