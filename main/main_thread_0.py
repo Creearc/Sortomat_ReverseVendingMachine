@@ -15,7 +15,7 @@ sys.path.insert(0, 'config/{}'.format(path))
 
 import RPi.GPIO as GPIO
 #from config import config
-config = importlib.import_module(args['config'], package=__package__)
+config = importlib.import_module(args['config'], package=args['config'])
   
 components = config.components
 print('[MAIN_THREAD] Компоненты готовы')
