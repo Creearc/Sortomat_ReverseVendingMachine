@@ -38,7 +38,6 @@ class Rotator:
 
   # Калибровка крыльчатки
   def calibrate(self):
-    if GPIO.input(self.ROTATOR_OPTICAL_PIN) == 1:
       print('[ROTATOR] Калибровка крыльчатки')
       if self.left:
         GPIO.output(self.DIR_PIN, GPIO.LOW)
