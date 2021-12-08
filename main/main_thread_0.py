@@ -11,7 +11,7 @@ args = vars(ap.parse_args())
 
 path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 print(path)
-#sys.path.insert(0, 'config/{}'.format(path))
+sys.path.insert(0, path)
 
 import RPi.GPIO as GPIO
 from config import config
