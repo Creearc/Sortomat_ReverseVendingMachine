@@ -66,7 +66,7 @@ class Monitor:
               color=LIGHT_BLUE, size=90)
         
       elif self.img_state.value == 8:
-        write(self.points, int(self.WIDTH // 1.4), int(self.HEIGHT * 0.515),
+        write(self.points.value, int(self.WIDTH // 1.4), int(self.HEIGHT * 0.515),
               self.screen,
               color=DARK_BLUE, size=220)
         
