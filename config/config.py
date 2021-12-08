@@ -15,8 +15,8 @@ components = dict()
 components['ROTATOR_CALIBRATION_TIME'] = 3.0
 components['CHECK_TIME'] = 1.5
 components['FALSE_THINGS_COUNT'] = 5
-components['HAND_DETECTION_TIME_LIMIT_SMALL'] = 60.0
-components['HAND_DETECTION_TIME_LIMIT_BIG'] = 60.0
+components['HAND_DETECTION_TIME_LIMIT_SMALL'] = 10.0
+components['HAND_DETECTION_TIME_LIMIT_BIG'] = 30.0
 components['SAVE_PATH'] = 'data'
 components['SPECIAL'] = 'al__Other'
 
