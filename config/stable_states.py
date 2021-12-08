@@ -15,6 +15,7 @@ states = {0 : lambda components, data : state_0(components, data),
            }
 
 def state_0(components, data):
+  print('HERE!!!')
   if data['state_changed']:
     components['weight'].set_null()
     data['check_time'] = time.time()
