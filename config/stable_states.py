@@ -134,6 +134,7 @@ def state_6(components, data):
     components['light'].color_preset('green')
     components['rotator'].start()
     data['check_time'] = time.time()
+  print(time.time() - data['check_time'])
 
   if components['ir_sensors'].hand():
     components['rotator'].stop()
