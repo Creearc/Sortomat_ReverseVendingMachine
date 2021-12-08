@@ -85,7 +85,7 @@ class Camera:
       cv2.imshow('is_object', np.vstack([out, old]))
       cv2.waitKey(1)
       
-    if mx > 100:
+    if mx > 10:
       return True
     else:
       return False
