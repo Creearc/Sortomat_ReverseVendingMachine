@@ -99,7 +99,7 @@ if __name__ == '__main__':
       components['destroyer'].stop_destroyer()
       components['rotator'].stop() 
 
-  components['monitor'].set_points(data['error_code'])
+  components['monitor'].set_points(int(data['error_code']))
   components['monitor'].state(8) 
                  
   components['destroyer'].stop_destroyer()
