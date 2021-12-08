@@ -21,6 +21,7 @@ def state_0(components, data):
     components['rotator'].calibrate()
     time.sleep(0.1)
     print('TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT')
+    print(components['rotator'].working)
   if time.time() - data['check_time'] > components['ROTATOR_CALIBRATION_TIME']:
     return 0, 4
   if not components['rotator'].working:
