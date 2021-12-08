@@ -62,7 +62,7 @@ def state_1(components, data):
   
 # 2 Рука  
 def state_2(components, data):
-  time.sleep(0.05)
+  #time.sleep(0.05)
   if data['state_changed']:
     components['monitor'].state(2)
     components['light'].color_preset('blue')
