@@ -15,6 +15,7 @@ print(path)
 sys.path.insert(0, path)
 
 os.popen(" DISPLAY=:0 chromium-browser  --disable-restore-session-state http://localhost:8080")
+time.sleep(1.0)
 
 import RPi.GPIO as GPIO
 from config import config_debug as config
