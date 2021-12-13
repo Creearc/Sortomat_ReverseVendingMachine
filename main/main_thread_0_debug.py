@@ -6,6 +6,34 @@ import time
 import os
 import sys
 
+from datetime import datetime
+from flask import Flask, Response, render_template
+
+application = Flask(__name__)
+
+@application.route('/')
+def index():
+    return render_template('index.html')
+
+
+@application.route('/chart-data')
+def chart_data():
+    def generate_random_data():
+        while True:
+            json_data = json.dumps(
+                {'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                 'door1': 0 if random.randint(0, 100) == 0 else 1,
+                 'door2': 0 if random.randint(0, 100) == 0 else 1,
+                 'door3': 0 if random.randint(0, 100) == 0 else 1,
+                 'ir': 0 if random.randint(0, 50) == 0 else 1,
+                 'rotator': 0 if random.randint(0, 100) == 0 else 1,
+                 'destroyer': 0 if random.randint(0, 100) == 0 else 1,
+                 })
+            yield f"data:{json_data}\n\n"
+            time.sleep(0.02)
+
+    return Response(generate_random_data(), mimetype='text/event-stream')
+
 ap = argparse.ArgumentParser()
 ap.add_argument("-c", "--config", type=str, default='config')
 args = vars(ap.parse_args())
@@ -13,9 +41,6 @@ args = vars(ap.parse_args())
 path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 print(path)
 sys.path.insert(0, path)
-
-os.popen(" DISPLAY=:0 chromium-browser --window-size=800,600 --disable-restore-session-state http://localhost:8080")
-time.sleep(1.0)
 
 import RPi.GPIO as GPIO
 from config import config_debug as config
@@ -84,7 +109,9 @@ class Main_thread:
     
 
 if __name__ == '__main__':
-  components['monitor'].state(10) 
+  components['monitor'].state(10)
+  os.popen(" DISPLAY=:0 chromium-browser --window-size=800,600 --disable-restore-session-state http://localhost:8080")
+  application.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
   while True:
     if data['error_code'] is None:
       time.sleep(0.1)
