@@ -1,3 +1,4 @@
+# export DISPLAY=":0" && python3 
 import threading
 import argparse
 #import importlib
@@ -14,7 +15,7 @@ print(path)
 sys.path.insert(0, path)
 
 import RPi.GPIO as GPIO
-from config import config
+from config import config_debug as config
 #config = importlib.import_module(args['config'], package='config')
   
 components = config.components
