@@ -14,7 +14,7 @@ path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 print(path)
 sys.path.insert(0, path)
 
-os.popen(" DISPLAY=:0 chromium-browser  --disable-restore-session-state http://localhost:8080")
+os.popen(" DISPLAY=:0 chromium-browser --window-size=800,600 --disable-restore-session-state http://localhost:8080")
 time.sleep(1.0)
 
 import RPi.GPIO as GPIO
