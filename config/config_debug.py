@@ -23,7 +23,7 @@ components['SPECIAL'] = 'al__Other'
 
 print('[CONFIG] Загрузка компонента монитора')
 from components import monitor
-components['monitor'] = monitor.Monitor(300, 400, False)
+components['monitor'] = monitor.Monitor(400, 300, False)
 components['monitor'].start()
 components['monitor'].state(0)
 print('[CONFIG] Монитор готов')
