@@ -84,10 +84,10 @@ components['destroyer'] = destroyer.Destroyer()
 components['destroyer'].start()
 print('[CONFIG] Сминатель готов')
 
-print('[CONFIG] Подготовка датчика веса')
-from components import weight
-components['weight'] = weight.Weight()
-print('[CONFIG] Датчик веса готов')
+##print('[CONFIG] Подготовка датчика веса')
+##from components import weight
+##components['weight'] = weight.Weight()
+##print('[CONFIG] Датчик веса готов')
 
 
 print('[CONFIG] Подготовка камеры')
