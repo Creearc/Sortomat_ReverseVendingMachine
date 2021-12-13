@@ -118,7 +118,7 @@ class Main_thread:
 if __name__ == '__main__':
   components['monitor'].state(10)
   os.environ['SDL_VIDEO_WINDOW_POS']='0,0'
-  os.popen(" DISPLAY=:0 chromium-browser --window-size=600,800 --disable-infobars --app http://localhost:8080")
+  os.popen(" DISPLAY=:0 chromium-browser --window-size=800,800 --disable-infobars --app=http://localhost:8080")
   application.run(host='0.0.0.0', port=8080, debug=not True, threaded=True)
   while True:
     if data['error_code'] is None:
