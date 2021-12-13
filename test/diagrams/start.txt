@@ -1,0 +1,9 @@
+sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit
+
+sudo apt-get install --no-install-recommends chromium-browser
+DISPLAY=:0 chromium-browser --kiosk --disable-restore-session-state http://localhost:8080
+
+sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
+VVVVVVVVVVVVVVVVVVVVVV
+/usr/bin/chromium-browser --kiosk --disable-restore-session-state http://localhost:8080
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
