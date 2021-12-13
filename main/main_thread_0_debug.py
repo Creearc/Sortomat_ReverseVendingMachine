@@ -34,7 +34,7 @@ def chart_data():
                  'destroyer': GPIO.input(components['destroyer'].SENSOR_PIN),
                  })
             yield f"data:{json_data}\n\n"
-            time.sleep(0.02)
+            time.sleep(0.05)
 
     return Response(generate_random_data(), mimetype='text/event-stream')
 
