@@ -31,7 +31,7 @@ def chart_data():
                  'door3': GPIO.input(components['door_sensors'].DOOR_BACK_PIN),
                  'ir': components['ir_sensors'].hand(),
                  'rotator': GPIO.input(components['rotator'].ROTATOR_OPTICAL_PIN),
-                 'destroyer': GPIO.input(components['rotator'].SENSOR_PIN),
+                 'destroyer': GPIO.input(components['destroyer'].SENSOR_PIN),
                  })
             yield f"data:{json_data}\n\n"
             time.sleep(0.02)
