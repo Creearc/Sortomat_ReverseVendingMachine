@@ -115,7 +115,7 @@
 
         source.onmessage = function (event) {
             const data = JSON.parse(event.data);
-            if (config.data.labels.length === 100) {
+            if (config.data.labels.length === 150) {
                 config.data.labels.shift();
                 config.data.datasets[0].data.shift();
 								config.data.datasets[1].data.shift();
