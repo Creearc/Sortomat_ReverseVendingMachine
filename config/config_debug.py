@@ -23,7 +23,7 @@ components['SPECIAL'] = 'al__Other'
 
 
 print('[CONFIG] Загрузка компонента монитора')
-os.environ['SDL_VIDEO_WINDOW_POS']='1000,0'
+os.environ['SDL_VIDEO_WINDOW_POS']='800,0'
 from components import monitor
 components['monitor'] = monitor.Monitor(400, 300, False)
 components['monitor'].start()
