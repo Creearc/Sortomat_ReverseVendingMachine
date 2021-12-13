@@ -26,6 +26,9 @@ def chart_data():
                  'ir': 0 if random.randint(0, 50) == 0 else 1,
                  'rotator': 0 if random.randint(0, 100) == 0 else 1,
                  'destroyer': 0 if random.randint(0, 100) == 0 else 1,
+                 'destroyer_on': 1 if random.randint(0, 100) == 0 else 2,
+                 'destroyer_forward': 1 if random.randint(0, 100) == 0 else 2,
+                 'destroyer_backward': 1 if random.randint(0, 100) == 0 else 2,
                  })
             yield f"data:{json_data}\n\n"
             time.sleep(0.02)

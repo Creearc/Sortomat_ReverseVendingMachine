@@ -32,6 +32,9 @@ def chart_data():
                  'ir': components['ir_sensors'].hand(),
                  'rotator': GPIO.input(components['rotator'].ROTATOR_OPTICAL_PIN),
                  'destroyer': GPIO.input(components['destroyer'].SENSOR_PIN),
+                 'destroyer_on': 3 if  GPIO.input(components['destroyer'].POWER_PIN) == 0 else 2,
+                 'destroyer_forward': 3 if  GPIO.input(components['destroyer'].FORWARD_PIN) == 0 else 2,
+                 'destroyer_backward': 3 if  GPIO.input(components['destroyer'].BACKWARD_PIN) == 0 else 2,
                  })
             yield f"data:{json_data}\n\n"
             time.sleep(0.05)
@@ -115,7 +118,7 @@ class Main_thread:
 if __name__ == '__main__':
   components['monitor'].state(10)
   os.environ['SDL_VIDEO_WINDOW_POS']='0,0'
-  os.popen(" DISPLAY=:0 chromium-browser --window-size=600,400 --disable-infobars --disable-restore-session-state http://localhost:8080")
+  os.popen(" DISPLAY=:0 chromium-browser --window-size=600,800 --disable-infobars --disable-restore-session-state http://localhost:8080")
   application.run(host='0.0.0.0', port=8080, debug=not True, threaded=True)
   while True:
     if data['error_code'] is None:

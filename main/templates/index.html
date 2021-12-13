@@ -31,44 +31,65 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: "Door 1",
+                    label: "Датчик двери 1",
                     backgroundColor: 'rgb(0, 0, 0)',
                     borderColor: 'rgb(0, 0, 0)',
                     data: [],
                     fill: false,
                 },
 								{
-                    label: "Door 2",
+                    label: "атчик двери 2",
                     backgroundColor: 'rgb(120, 220, 120)',
                     borderColor: 'rgb(120, 220, 120)',
                     data: [],
                     fill: false,
                 },
 								{
-                    label: "Door 3",
+                    label: "атчик двери 3",
                     backgroundColor: 'rgb(200, 100, 200)',
                     borderColor: 'rgb(200, 100, 200)',
                     data: [],
                     fill: false,
                 },
 								{
-                    label: "Hand sensors",
+                    label: "Датчики руки",
                     backgroundColor: 'rgb(255, 0, 0)',
                     borderColor: 'rgb(255, 0, 0)',
                     data: [],
                     fill: false,
                 },
 								{
-                    label: "Rotator",
+                    label: "Датчик крыльчатки",
                     backgroundColor: 'rgb(0, 0, 255)',
                     borderColor: 'rgb(0, 0, 255)',
                     data: [],
                     fill: false,
                 },
 								{
-                    label: "Destroyer",
+                    label: "Датчик сминателя",
                     backgroundColor: 'rgb(0, 255, 255)',
                     borderColor: 'rgb(0, 255, 255)',
+                    data: [],
+                    fill: false,
+                },
+								{
+                    label: "Включение сминателя",
+                    backgroundColor: 'orange',
+                    borderColor: 'orange',
+                    data: [],
+                    fill: false,
+                },
+								{
+                    label: "Сминатель вперед",
+                    backgroundColor: 'rgb(150, 200, 255)',
+                    borderColor: 'rgb(150, 200, 255)',
+                    data: [],
+                    fill: false,
+                },
+								{
+                    label: "Сминатель назад",
+                    backgroundColor: 'rgb(200, 200, 255)',
+                    borderColor: 'rgb(200, 200, 255)',
                     data: [],
                     fill: false,
                 },
@@ -123,6 +144,9 @@
 								config.data.datasets[3].data.shift();
 								config.data.datasets[4].data.shift();
 								config.data.datasets[5].data.shift();
+								config.data.datasets[6].data.shift();
+								config.data.datasets[7].data.shift();
+								config.data.datasets[8].data.shift();
             }
             config.data.labels.push(data.time);
             config.data.datasets[0].data.push(data.door1);
@@ -131,6 +155,9 @@
 						config.data.datasets[3].data.push(data.ir);
 						config.data.datasets[4].data.push(data.rotator);
 						config.data.datasets[5].data.push(data.destroyer);
+						config.data.datasets[6].data.push(data.destroyer_on);
+						config.data.datasets[7].data.push(data.destroyer_forward);
+						config.data.datasets[8].data.push(data.destroyer_backward);
             lineChart.update();
         }
     });
