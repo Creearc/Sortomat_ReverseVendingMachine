@@ -7,6 +7,9 @@ import os
 import sys
 import json
 
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+
 from datetime import datetime
 from flask import Flask, Response, render_template
 
@@ -23,12 +26,12 @@ def chart_data():
         while True:
             json_data = json.dumps(
                 {'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                 'door1': 0 if random.randint(0, 100) == 0 else 1,
-                 'door2': 0 if random.randint(0, 100) == 0 else 1,
-                 'door3': 0 if random.randint(0, 100) == 0 else 1,
-                 'ir': 0 if random.randint(0, 50) == 0 else 1,
-                 'rotator': 0 if random.randint(0, 100) == 0 else 1,
-                 'destroyer': 0 if random.randint(0, 100) == 0 else 1,
+                 'door1': GPIO.input(components['door_sensors'].DOOR_UP_PIN),
+                 'door2': GPIO.input(components['door_sensors'].DOOR_DOWN_PIN),
+                 'door3': GPIO.input(components['door_sensors'].DOOR_BACK_PIN),
+                 'ir': components['ir_sensors'].hand(),
+                 'rotator': GPIO.input(components['rotator'].ROTATOR_OPTICAL_PIN),
+                 'destroyer': GPIO.input(components['rotator'].SENSOR_PIN),
                  })
             yield f"data:{json_data}\n\n"
             time.sleep(0.02)
