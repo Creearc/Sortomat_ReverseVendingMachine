@@ -14,6 +14,8 @@ path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 print(path)
 sys.path.insert(0, path)
 
+os.popen(" DISPLAY=:0 chromium-browser  --disable-restore-session-state http://localhost:8080")
+
 import RPi.GPIO as GPIO
 from config import config_debug as config
 #config = importlib.import_module(args['config'], package='config')
