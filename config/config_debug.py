@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import sys
+import os
 ##path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 ##sys.path.insert(0, path)
 path = sys.path[0].replace('\\', '/')
@@ -22,6 +23,7 @@ components['SPECIAL'] = 'al__Other'
 
 
 print('[CONFIG] Загрузка компонента монитора')
+os.environ['SDL_VIDEO_WINDOW_POS']='1000,0'
 from components import monitor
 components['monitor'] = monitor.Monitor(400, 300, False)
 components['monitor'].start()
