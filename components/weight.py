@@ -23,6 +23,7 @@ class Weight:
     # Переменные
     self.HEAVY = HEAVY
     self.start_weight = 0
+    self.delta = 0
 
 
   # Измерить вес
@@ -36,9 +37,9 @@ class Weight:
 
   def is_heavy(self):
     weight = self.measure(5)
-    delta = weight - self.start_weight
-    print(delta)
-    if delta > self.HEAVY:
+    self.delta = weight - self.start_weight
+    print(self.delta)
+    if self.delta > self.HEAVY:
       return True
     else:
       return False     

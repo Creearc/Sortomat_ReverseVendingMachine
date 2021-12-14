@@ -124,7 +124,7 @@ def state_5(components, data):
     return 1, 6
   if results.count('Other__Other2') == 0 and results.count('empty_Empty') == 0:
     data['add_points'] = 1
-    components['rotator'].left = not True
+    components['rotator'].left = True
     components['destroyer'].use = True
     return 1, 6
     

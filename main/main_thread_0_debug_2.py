@@ -1,45 +1,9 @@
-# export DISPLAY=":0" && python3 
 import threading
 import argparse
 #import importlib
 import time
 import os
 import sys
-import json
-
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-
-from datetime import datetime
-from flask import Flask, Response, render_template
-
-application = Flask(__name__)
-
-@application.route('/')
-def index():
-    return render_template('index.html')
-
-
-@application.route('/chart-data')
-def chart_data():
-    def generate_random_data():
-        while True:
-            json_data = json.dumps(
-                {'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                 'door1': GPIO.input(components['door_sensors'].DOOR_UP_PIN),
-                 'door2': GPIO.input(components['door_sensors'].DOOR_DOWN_PIN),
-                 'door3': GPIO.input(components['door_sensors'].DOOR_BACK_PIN),
-                 'ir': components['ir_sensors'].hand(),
-                 'rotator': GPIO.input(components['rotator'].ROTATOR_OPTICAL_PIN),
-                 'destroyer': GPIO.input(components['destroyer'].SENSOR_PIN),
-                 'destroyer_on': 3 if  GPIO.input(components['destroyer'].POWER_PIN) == 0 else 2,
-                 'destroyer_forward': 3 if  GPIO.input(components['destroyer'].FORWARD_PIN) == 0 else 2,
-                 'destroyer_backward': 3 if  GPIO.input(components['destroyer'].BACKWARD_PIN) == 0 else 2,
-                 })
-            yield f"data:{json_data}\n\n"
-            time.sleep(0.05)
-
-    return Response(generate_random_data(), mimetype='text/event-stream')
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-c", "--config", type=str, default='config')
@@ -50,6 +14,7 @@ print(path)
 sys.path.insert(0, path)
 
 import RPi.GPIO as GPIO
+os.environ['SDL_VIDEO_WINDOW_POS']='1000,0'
 from config import config_debug as config
 #config = importlib.import_module(args['config'], package='config')
   
@@ -81,22 +46,25 @@ data['user_id'] = 0
 os.mkdir(data['save_path'])
 
 def writer_thread():
+    s = ''
     while True:
-        f = open('1.txt', 'a')
-        f.write('door1: {} door2: {} door3: {} ir: {} rotator: {} destroyer: {} on: {} forward: {} backward: {}/n'.format(GPIO.input(components['door_sensors'].DOOR_UP_PIN),
+        
+        old_s = s 
+        s = 'd1 {};  d2 {};  d3 {};  ir {};  rot {};  w {};  destroyer[on {}; f {}; b {}]\n'.format(GPIO.input(components['door_sensors'].DOOR_UP_PIN),
                                                     GPIO.input(components['door_sensors'].DOOR_DOWN_PIN),
                                                     GPIO.input(components['door_sensors'].DOOR_BACK_PIN),
                                                     components['ir_sensors'].hand(),
                                                     GPIO.input(components['rotator'].ROTATOR_OPTICAL_PIN),
-                                                    GPIO.input(components['destroyer'].SENSOR_PIN),
+                                                    components['weight'].delta,
+                                                    #GPIO.input(components['destroyer'].SENSOR_PIN),
                                                     GPIO.input(components['destroyer'].POWER_PIN),
                                                     GPIO.input(components['destroyer'].FORWARD_PIN),
-                                                    GPIO.input(components['destroyer'].BACKWARD_PIN)))
-        f.close()
+                                                    GPIO.input(components['destroyer'].BACKWARD_PIN))
+        if s != old_s:
+          f = open('1.txt', 'a')
+          f.write(s)
+          f.close()
         time.sleep(0.02)
-                 
-    
-
 
 class Main_thread:
   def __init__(self):
@@ -135,10 +103,8 @@ class Main_thread:
 if __name__ == '__main__':
   components['monitor'].state(10)
   os.environ['SDL_VIDEO_WINDOW_POS']='0,0'
-  os.popen('DISPLAY=":0" lxterminal -e watch -n 0.1 tail 1.txt')
+  os.popen('DISPLAY=":0" lxterminal -e watch -n 0.1 -d tail -n 20 1.txt')
   threading.Thread(target=writer_thread, args=()).start()
-  #os.popen(" DISPLAY=:0 chromium-browser --window-size=800,800 --disable-infobars --app=http://localhost:8080")
-  #application.run(host='0.0.0.0', port=8080, debug=not True, threaded=True)
   while True:
     if data['error_code'] is None:
       time.sleep(0.1)

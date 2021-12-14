@@ -73,10 +73,10 @@ class Rotator:
   def optical_sensor(self, channel):
     self.old_state = self.state
     self.state = GPIO.input(self.ROTATOR_OPTICAL_PIN)
-    if self.old_state == 1 and self.state == 0 and self.use_opical_sensor and not self.wait:
+    if self.old_state == 0 and self.state == 1 and self.use_opical_sensor and not self.wait:
       self.stop()
       time.sleep(0.2)
-      self.old_state = 0
+      self.old_state = 1
 
 
 if __name__ == '__main__':
