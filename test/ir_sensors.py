@@ -7,7 +7,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 class IR_sensors:
-  def __init__(self, PIN_1=31, PIN_2=32):
+  def __init__(self, PIN_1=6, PIN_2=12):
     # Пины
     self.PIN_1 = PIN_1
     GPIO.setup(self.PIN_1, GPIO.IN)
@@ -49,11 +49,17 @@ class IR_sensors:
 
 
 if __name__ == '__main__':
+  import os
   try:
+    os.environ['SDL_VIDEO_WINDOW_POS']='0,0'
+    os.popen('DISPLAY=":0" lxterminal -e watch -n 0.1 -d tail -n 20 1.txt')
     ir = IR_sensors()
     while True:
       print(ir.hand())
       print(ir.show_all())
+      f = open('1.txt', 'a')
+      f.write('{}\n'.format(ir.show_all()))
+      f.close()
       time.sleep(0.1)
   except KeyboardInterrupt:
     GPIO.cleanup()
