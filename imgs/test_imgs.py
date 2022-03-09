@@ -60,6 +60,11 @@ class Monitor:
         if event.type == pygame.QUIT:
           break
       self.show_image(imgs[self.img_state])
+      
+      write(1000, int(self.WIDTH * 0.5), int(self.HEIGHT * 0.95),
+              self.screen,
+              color=LIGHT_BLUE, size=45)
+      
       if self.img_state == 9:       
         write(self.points, int(self.WIDTH // 1.7), int(self.HEIGHT * 0.615),
               self.screen,

@@ -153,6 +153,16 @@ def state_6(components, data):
 def state_7(components, data):
   data['points'] += data['add_points']
   components['scaner'].start()
+
+  filename = 'tmp.txt'
+  points = 0
+  if not os.path.exists(filename):
+    with open(filename, 'r') as f:
+      points = f.read()
+  points = int(points) + data['points']
+  with open(filename, 'w') as f:
+    f.write(points)
+    
   return 1, 8
 
 # 8 Запуск сминателя

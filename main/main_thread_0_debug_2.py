@@ -49,8 +49,14 @@ def writer_thread():
     s = ''
     while True:
         
-        old_s = s 
-        s = 'd1 {};  d2 {};  d3 {};  ir {};  rot {};  w {};  destroyer[on {}; f {}; b {}]\n'.format(GPIO.input(components['door_sensors'].DOOR_UP_PIN),
+        old_s = s
+
+        filename = 'tmp.txt'
+        points = 0
+        if not os.path.exists(filename):
+          with open(filename, 'r') as f:
+            points = f.read()
+        s = 'd1 {};  d2 {};  d3 {};  ir {};  rot {};  w {};  d[on {}; f {}; b {}];  {}\n'.format(GPIO.input(components['door_sensors'].DOOR_UP_PIN),
                                                     GPIO.input(components['door_sensors'].DOOR_DOWN_PIN),
                                                     GPIO.input(components['door_sensors'].DOOR_BACK_PIN),
                                                     components['ir_sensors'].hand(),
@@ -59,7 +65,8 @@ def writer_thread():
                                                     #GPIO.input(components['destroyer'].SENSOR_PIN),
                                                     GPIO.input(components['destroyer'].POWER_PIN),
                                                     GPIO.input(components['destroyer'].FORWARD_PIN),
-                                                    GPIO.input(components['destroyer'].BACKWARD_PIN))
+                                                    GPIO.input(components['destroyer'].BACKWARD_PIN),
+                                                    points)
         if s != old_s:
           f = open('1.txt', 'a')
           f.write(s)
@@ -103,7 +110,7 @@ class Main_thread:
 if __name__ == '__main__':
   components['monitor'].state(10)
   os.environ['SDL_VIDEO_WINDOW_POS']='0,0'
-  os.popen('DISPLAY=":0" lxterminal -e watch -n 0.1 -d tail -n 20 1.txt')
+  os.popen('DISPLAY=":0" lxterminal --geometry=180x35 -t "Debug data" -e watch -n 0.1 -d tail -n 20 1.txt')
   threading.Thread(target=writer_thread, args=()).start()
   while True:
     if data['error_code'] is None:
