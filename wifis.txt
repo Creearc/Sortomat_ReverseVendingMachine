@@ -1,0 +1,24 @@
+network={
+        ssid="WhiteFox"
+        psk="849593672a"
+        key_mgmt=WPA-PSK
+}
+
+network={
+        ssid="ank"
+        psk="44489336"
+        key_mgmt=WPA-PSK
+}
+
+network={
+        ssid="AI-THINKER_39819C"
+        key_mgmt=NONE
+        disabled=1
+}
+
+network={
+        ssid="KIRILL-PC"
+        psk="KirBeatBarBer94a"
+        key_mgmt=WPA-PSK
+        disabled=1
+}

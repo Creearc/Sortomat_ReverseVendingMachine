@@ -156,7 +156,7 @@ def state_7(components, data):
 
   filename = 'tmp.txt'
   points = 0
-  if not os.path.exists(filename):
+  if os.path.exists(filename):
     with open(filename, 'r') as f:
       points = f.read()
   points = int(points) + data['points']

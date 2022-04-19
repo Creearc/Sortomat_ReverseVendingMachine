@@ -53,7 +53,7 @@ def writer_thread():
 
         filename = 'tmp.txt'
         points = 0
-        if not os.path.exists(filename):
+        if os.path.exists(filename):
           with open(filename, 'r') as f:
             points = f.read()
         s = 'd1 {};  d2 {};  d3 {};  ir {};  rot {};  w {};  d[on {}; f {}; b {}];  {}\n'.format(GPIO.input(components['door_sensors'].DOOR_UP_PIN),
