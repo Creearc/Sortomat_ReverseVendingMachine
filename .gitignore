@@ -3,3 +3,4 @@ test/output_photos/
 *.eye
 dataset/*
 test/nn/*
+*configure_file.py
