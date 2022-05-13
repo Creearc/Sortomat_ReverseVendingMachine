@@ -6,6 +6,7 @@ import os
 import sys
 
 def writer_thread():
+    global close_console
     close_console = False
     s = ''
     while True:
