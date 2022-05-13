@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import sys
 import os
+
 ##path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
 ##sys.path.insert(0, path)
 path = sys.path[0].replace('\\', '/')
@@ -19,6 +20,10 @@ components['HAND_DETECTION_TIME_LIMIT_BIG'] = 30.0
 components['SAVE_PATH'] = 'data'
 components['SPECIAL'] = 'al__Other'
 
+print('[CONFIG] Сценариев')
+from card_scaner.config import stable_states
+from card_scaner.config import unstable_states
+print('[CONFIG] Сценарии готовы')
 
 print('[CONFIG] Загрузка компонента монитора')
 os.environ['SDL_VIDEO_WINDOW_POS']='800,0'

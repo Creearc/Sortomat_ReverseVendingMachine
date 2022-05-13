@@ -82,7 +82,6 @@ if __name__ == '__main__':
         import RPi.GPIO as GPIO
 
     path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
-    print(path)
     sys.path.insert(0, path)
 
     if args['console']:
@@ -102,11 +101,9 @@ if __name__ == '__main__':
     print('[MAIN_THREAD] Компоненты готовы')
 
     sys.path.insert(0, path)
-    from config import stable_states
-    from config import unstable_states
 
-    states = stable_states.states
-    states.update(unstable_states.states)
+    states = config.stable_states.states
+    states.update(config.unstable_states.states)
 
     if not os.path.exists(components['SAVE_PATH']):
         os.makedirs(components['SAVE_PATH'])
