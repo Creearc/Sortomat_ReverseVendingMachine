@@ -90,11 +90,11 @@ if __name__ == '__main__':
 
     if not args['not_rpi']:
         try:
-            from config import configure_file as config
+            import configure_file as config
         except:
-            with open('config/configure_file.py', 'w') as f:
+            with open('configure_file.py', 'w') as f:
                 f.write('from config.config_sortomat_2 import *')
-            from config import configure_file as config
+            import configure_file as config
     else:
         from config import config_test as config
       
