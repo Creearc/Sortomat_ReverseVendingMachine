@@ -21,8 +21,8 @@ components['SAVE_PATH'] = 'data'
 components['SPECIAL'] = 'al__Other'
 
 print('[CONFIG] Сценариев')
-from card_scaner.config import stable_states
-from card_scaner.config import unstable_states
+from config.card_scaner import stable_states
+from config.card_scaner import unstable_states
 print('[CONFIG] Сценарии готовы')
 
 print('[CONFIG] Загрузка компонента монитора')
