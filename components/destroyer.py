@@ -36,7 +36,7 @@ class Destroyer:
 
     self.command = 'off'
     self.direction = 'forward'
-    self.state = 'stop'
+    self.state = None
 
     self.lock = threading.Lock()
 
