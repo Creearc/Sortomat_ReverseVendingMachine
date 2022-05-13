@@ -47,11 +47,11 @@ class Destroyer:
 
 
   def stop(self):
-    print('[Destroyer] Power OFF')
+    print(print_style.format('[Destroyer] Power OFF'))
     GPIO.output(self.POWER_PIN, GPIO.LOW)
     time.sleep(0.1)
       
-    print('[Destroyer] Directions OFF')
+    print(print_style.format('[Destroyer] Directions OFF'))
     GPIO.output(self.FORWARD_PIN, GPIO.LOW)
     GPIO.output(self.BACKWARD_PIN, GPIO.LOW)
     time.sleep(0.1)
@@ -61,15 +61,15 @@ class Destroyer:
   def forward(self):
     self.stop()
 
-    print('[Destroyer] Forward')
+    print(print_style.format('[Destroyer] Forward'))
     GPIO.output(self.FORWARD_PIN, GPIO.HIGH)
-    print('[Destroyer] Forward pin ON')
+    print(print_style.format('[Destroyer] Forward pin ON'))
     time.sleep(0.1)
     
     self.direction = 'forward'
     self.step_time = time.time()    
     GPIO.output(self.POWER_PIN, GPIO.HIGH)
-    print('[Destroyer] Power pin ON')
+    print(print_style.format('[Destroyer] Power pin ON'))
     time.sleep(0.1)
     self.state = 'forward'
 
@@ -77,15 +77,15 @@ class Destroyer:
   def backward(self):
     self.stop()
     
-    print('[Destroyer] Backward')
+    print(print_style.format('[Destroyer] Backward'))
     GPIO.output(self.BACKWARD_PIN, GPIO.HIGH)
-    print('[Destroyer] Backward pin ON')
+    print(print_style.format('[Destroyer] Backward pin ON'))
     time.sleep(0.1)
     
     self.direction = 'backward'
     self.reverse_time = time.time()
     GPIO.output(self.POWER_PIN, GPIO.HIGH)
-    print('[Destroyer] Power pin ON')
+    print(print_style.format('[Destroyer] Power pin ON'))
     time.sleep(0.1)
     self.state = 'backward'
 
@@ -101,7 +101,7 @@ class Destroyer:
     self.direction = 'off'
     while True:
       if self.command == 'forward':
-        print('[Destroyer] Command -> Forward')
+        print(print_style.format('[Destroyer] Command -> Forward'))
         self.reverse_count = 0
         self.forward()
         self.end_time = time.time() + self.working_time
@@ -109,7 +109,7 @@ class Destroyer:
             self.command = 'wait'
 
       elif self.command == 'backward':
-        print('[Destroyer] Command -> Backward')
+        print(print_style.format('[Destroyer] Command -> Backward'))
         self.backward()
         self.end_time = self.end_time + self.reverse_working_time
         with self.lock:
@@ -126,7 +126,7 @@ class Destroyer:
         if time.time() - self.step_time > 1:
           with self.lock:
             self.command = 'backward'
-          print('[Destroyer] -> Low speed!')
+          print(print_style.format('[Destroyer] -> Low speed!'))
           self.reverse_count += 1
         else:
           with self.lock:
@@ -137,7 +137,7 @@ class Destroyer:
           with self.lock:
             self.command = 'forward'
           self.step_time = time.time()
-          print('[Destroyer] -> Reverse finished!')
+          print(print_style.format('[Destroyer] -> Reverse finished!'))
         else:
           with self.lock:
             self.command = 'wait'
