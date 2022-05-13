@@ -99,6 +99,9 @@ if __name__ == '__main__':
     states = stable_states.states
     states.update(unstable_states.states)
 
+    if not os.path.exists(components['SAVE_PATH']):
+        os.makedirs(components['SAVE_PATH'])
+
     data = dict()
     data['error_code'] = None
     data['state'] = 0 
