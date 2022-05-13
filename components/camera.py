@@ -42,6 +42,14 @@ class Camera:
     self.wait = Queue(2)
     self.img_s = Queue(2)
 
+    self.red_region = [300, 420, 200, 980]
+    self.red_gamma = 15.5
+    self.red_max = 100
+
+    self.blue_region = [300, 420, 200, 980]
+    self.blue_gamma = 6.5
+    self.blue_max = 10
+
   def get_img(self):
     while self.img_s.empty():
       pass
@@ -63,10 +71,11 @@ class Camera:
 
   # Проверка наличия объекта на изображении
   def is_object_red(self, img, debug=False, show=False):
-    out = img[100 : 520, 200 : 980]
+    out = img[self.red_region[0] : self.red_region[1],
+              self.red_region[2] : self.red_region[3]]
     out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
     old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-    out = adjust_gamma(out, 7.5)
+    out = adjust_gamma(out, self.red_gamma)
     out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
     out = cv2.GaussianBlur(out, (11, 11), 0)
     
@@ -85,16 +94,15 @@ class Camera:
       cv2.imshow('is_object', np.vstack([out, old]))
       cv2.waitKey(1)
       
-    if mx > 10:
-      return True
-    else:
-      return False
+    return mx > self.red_max
+
 
   def is_object_blue(self, img, debug=False, show=False):
-    out = img[100 : 520, 200 : 980]
+    out = img[self.blue_region[0] : self.blue_region[1],
+              self.blue_region[2] : self.blue_region[3]]
     out = cv2.cvtColor(out, cv2.COLOR_BGR2GRAY)
     old = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
-    out = adjust_gamma(out, 4.5)
+    out = adjust_gamma(out, self.blue_gamma)
     out = imutils.resize(out, width=300, inter=cv2.INTER_NEAREST)
     out = cv2.GaussianBlur(out, (7, 7), 0)
     
@@ -113,19 +121,38 @@ class Camera:
       cv2.imshow('is_object', np.vstack([out, old]))
       cv2.waitKey(1)
       
-    if mx > 10:
-      return True
-    else:
-      return False
+    return mx > self.blue_max
+
 
 if __name__ == '__main__':
   import time
   c = Camera()
   c.start()
+
+  sortomat = 1
+
+  if sortomat == 1:
+    c.red_region = [100, 520, 200, 980]
+    c.red_gamma = 7.5
+    c.red_max = 10
+
+    c.blue_region = [120, 520, 200, 980]
+    c.blue_gamma = 4.5
+    c.blue_max = 10
+    
+  elif sortomat == 2:
+    c.red_region = [300, 420, 200, 980]
+    c.red_gamma = 15.5
+    c.red_max = 100
+
+    c.blue_region = [300, 420, 200, 980]
+    c.blue_gamma = 6.5
+    c.blue_max = 10
+  
   while True:
     img = c.get_img()
-    print(c.is_object_blue(img, True, True))
-    #print(c.is_object_red(img, True, True))
+    #print(c.is_object_blue(img, True, True))
+    print(c.is_object_red(img, True, True))
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q") or key == 27:

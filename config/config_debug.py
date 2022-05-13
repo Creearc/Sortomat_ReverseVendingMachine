@@ -7,8 +7,6 @@ path = sys.path[0].replace('\\', '/')
 print(path)
 
 print('[CONFIG] Начало')
-
-GPIO.cleanup()
 components = dict()
 
 
