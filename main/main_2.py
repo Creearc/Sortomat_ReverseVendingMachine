@@ -6,8 +6,11 @@ import os
 import sys
 
 def writer_thread():
+    close_console = False
     s = ''
-    while True:    
+    while True:
+        if close_console:
+            break
         old_s = s
 
         filename = 'tmp.txt'
@@ -145,10 +148,15 @@ if __name__ == '__main__':
             components['rotator'].stop() 
 
     components['monitor'].set_points(int(data['error_code']))
-    components['monitor'].state(8) 
+    components['monitor'].state(8)
+
+    if args['console']:
+        close_console = True
                  
     components['destroyer'].stop_destroyer()
     components['rotator'].stop()
+    
+        
     while components['destroyer'].state != 'stop':
         time.sleep(0.05)
     if not args['not_rpi']:
