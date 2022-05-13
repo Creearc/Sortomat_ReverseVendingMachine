@@ -9,7 +9,10 @@ print(path)
 print('[CONFIG] Начало')
 components = dict()
 
-
+print('[CONFIG] Сценариев')
+from config.card_scaner import stable_states
+from config.card_scaner import unstable_states
+print('[CONFIG] Сценарии готовы')
 
 components['ROTATOR_CALIBRATION_TIME'] = 3.0
 components['CHECK_TIME'] = 1.5
