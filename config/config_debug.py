@@ -85,8 +85,18 @@ components['destroyer'].start()
 print('[CONFIG] Сминатель готов')
 
 print('[CONFIG] Подготовка датчика веса')
-from components import weight
-components['weight'] = weight.Weight()
+##from components import weight
+##components['weight'] = weight.Weight()
+class Weight:
+  def __init__(self):
+    self.heavy = False
+    self.delta = 0
+  def is_heavy(self):
+    return self.heavy
+  def set_null(self):
+    pass
+  
+components['weight'] = Weight()
 print('[CONFIG] Датчик веса готов')
 
 
