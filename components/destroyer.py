@@ -1,5 +1,4 @@
 # Модуль
-#from colorama import Fore, Back, Style
 import sys
 import RPi.GPIO as GPIO
 import threading
@@ -115,7 +114,7 @@ class Destroyer:
             self.command = 'wait'
 
       elif self.command == 'stop':
-        print('\033[31m [Destroyer] Command -> Stop')
+        print('\033[31m [Destroyer] Command -> Stop \033[0m')
         self.stop()
         self.direction = 'off'
         with self.lock:
