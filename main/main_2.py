@@ -149,9 +149,8 @@ if __name__ == '__main__':
                  
     components['destroyer'].stop_destroyer()
     components['rotator'].stop()
-    while components['destroyer'].direction != 'off':
+    while components['destroyer'].state != 'stop':
         time.sleep(0.05)
-    print(components['destroyer'].direction)
     if not args['not_rpi']:
         GPIO.cleanup() 
     print("_______________________________________________________________")
