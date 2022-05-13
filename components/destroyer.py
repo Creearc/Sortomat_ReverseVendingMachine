@@ -36,6 +36,7 @@ class Destroyer:
 
     self.command = 'off'
     self.direction = 'forward'
+    self.state = 'stop'
 
     self.lock = threading.Lock()
 
@@ -46,12 +47,13 @@ class Destroyer:
   def stop(self):
     print('[Destroyer] Power OFF')
     GPIO.output(self.POWER_PIN, GPIO.LOW)
-    time.sleep(1.0)
+    time.sleep(0.1)
       
     print('[Destroyer] Directions OFF')
     GPIO.output(self.FORWARD_PIN, GPIO.LOW)
     GPIO.output(self.BACKWARD_PIN, GPIO.LOW)
-    time.sleep(1.0)
+    time.sleep(0.1)
+    self.state = 'stop'
 
 
   def forward(self):
@@ -60,12 +62,14 @@ class Destroyer:
     print('[Destroyer] Forward')
     GPIO.output(self.FORWARD_PIN, GPIO.HIGH)
     print('[Destroyer] Forward pin ON')
-    time.sleep(1.0)
+    time.sleep(0.1)
     
     self.direction = 'forward'
     self.step_time = time.time()    
     GPIO.output(self.POWER_PIN, GPIO.HIGH)
     print('[Destroyer] Power pin ON')
+    time.sleep(0.1)
+    self.state = 'forward'
 
 
   def backward(self):
@@ -73,11 +77,15 @@ class Destroyer:
     
     print('[Destroyer] Backward')
     GPIO.output(self.BACKWARD_PIN, GPIO.HIGH)
-    time.sleep(1.0)
+    print('[Destroyer] Backward pin ON')
+    time.sleep(0.1)
     
     self.direction = 'backward'
     self.reverse_time = time.time()
     GPIO.output(self.POWER_PIN, GPIO.HIGH)
+    print('[Destroyer] Power pin ON')
+    time.sleep(0.1)
+    self.state = 'backward'
 
   
   def start(self):
