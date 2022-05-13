@@ -6,6 +6,8 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
+print_style = '\033[33m{}\033[0m'
+
 class Destroyer:
   def __init__(self, POWER_PIN=13, FORWARD_PIN=19, BACKWARD_PIN=26, SENSOR_PIN=27):
     # Пины
@@ -114,7 +116,7 @@ class Destroyer:
             self.command = 'wait'
 
       elif self.command == 'stop':
-        print('\033[31m [Destroyer] Command -> Stop \033[0m')
+        print(print_style.format('[Destroyer] Command -> Stop'))
         self.stop()
         self.direction = 'off'
         with self.lock:
