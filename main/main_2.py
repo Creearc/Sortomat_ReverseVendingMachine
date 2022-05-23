@@ -88,12 +88,9 @@ if __name__ == '__main__':
         os.environ['SDL_VIDEO_WINDOW_POS']='1000,0'
 
     if not args['not_rpi']:
-        try:
-            import configure_file as config
-        except:
-            with open('configure_file.py', 'w') as f:
-                f.write('from config.config_sortomat_2 import *')
-            import configure_file as config
+##        with open('configure_file.py', 'w') as f:
+##            f.write('from config.config_sortomat_2 import *')
+        import configure_file as config
     else:
         from config import config_test as config
       
