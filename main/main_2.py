@@ -22,7 +22,7 @@ def writer_thread():
         s = 'd1 {};  d2 {};  d3 {};  ir {};  rot {};  w {};  d[on {}; f {}; b {}];  {}\n'.format(GPIO.input(components['door_sensors'].DOOR_UP_PIN),
                                                     GPIO.input(components['door_sensors'].DOOR_DOWN_PIN),
                                                     GPIO.input(components['door_sensors'].DOOR_BACK_PIN),
-                                                    components['ir_sensors'].hand(),
+                                                    components['ir_sensors'].show_all(),
                                                     GPIO.input(components['rotator'].ROTATOR_OPTICAL_PIN),
                                                     components['weight'].delta,
                                                     #GPIO.input(components['destroyer'].SENSOR_PIN),
