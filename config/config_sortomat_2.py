@@ -89,7 +89,6 @@ print('[CONFIG] Сминатель готов')
 print('[CONFIG] Подготовка датчика веса')
 from components import weight
 components['weight'] = weight.Weight() 
-components['weight'] = Weight()
 print('[CONFIG] Датчик веса готов')
 
 
