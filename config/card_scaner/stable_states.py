@@ -164,7 +164,7 @@ def state_7(components, data):
   except:
     points = data['points']
   with open(filename, 'w') as f:
-    f.write(points)
+    f.write(str(points))
     
   return 1, 8
 
