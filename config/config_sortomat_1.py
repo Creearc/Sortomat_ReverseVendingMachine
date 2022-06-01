@@ -66,7 +66,7 @@ components['rotator'] = rotator.Rotator()
 print('[CONFIG] Крыльчатка готова')
 
 print('[CONFIG] Подготовка датчиков дверей')
-from components import door_sensors       
+from components import door_sensors_old as door_sensors   
 components['door_sensors'] = door_sensors.Door_sensors()
 print('[CONFIG] Датчики дверей готовы')
 
