@@ -9,6 +9,8 @@ from multiprocessing import Process, Value, Queue
 class Camera:
   def __init__(self, src=0, WIDTH=1280, HEIGHT=720,
                CODEC=cv2.VideoWriter_fourcc('M','J','P','G')):
+    self.src = src
+    self.WIDTH = WIDTH
     self.HEIGHT = HEIGHT
     self.CODEC = CODEC
 
