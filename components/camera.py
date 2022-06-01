@@ -141,11 +141,11 @@ if __name__ == '__main__':
     c.blue_max = 10
     
   elif sortomat == 2:
-    c.red_region = [300, 420, 200, 980]
+    c.red_region = [300, 420, 200, 930]
     c.red_gamma = 15.5
     c.red_max = 100
 
-    c.blue_region = [300, 420, 200, 980]
+    c.blue_region = [300, 420, 200, 930]
     c.blue_gamma = 6.5
     c.blue_max = 10
   
