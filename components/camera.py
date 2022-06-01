@@ -151,8 +151,8 @@ if __name__ == '__main__':
   
   while True:
     img = c.get_img()
-    #print(c.is_object_blue(img, True, True))
-    print(c.is_object_red(img, True, True))
+    print(c.is_object_blue(img, True, True))
+    #print(c.is_object_red(img, True, True))
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q") or key == 27:
