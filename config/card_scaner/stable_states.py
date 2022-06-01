@@ -156,10 +156,13 @@ def state_7(components, data):
 
   filename = 'tmp.txt'
   points = 0
-  if os.path.exists(filename):
-    with open(filename, 'r') as f:
-      points = f.read()
-  points = int(points) + data['points']
+  try:
+    if os.path.exists(filename):
+      with open(filename, 'r') as f:
+        points = f.read()
+    points = int(points) + data['points']
+  except:
+    points = data['points']
   with open(filename, 'w') as f:
     f.write(points)
     
