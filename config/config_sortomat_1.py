@@ -32,7 +32,7 @@ print('[CONFIG] Монитор готов')
 
 print('[CONFIG] Подготовка освещения')
 from components import light
-components['light'] = light.Light(BLUE_PIN=2, RED_PIN=3, GREEN_PIN=4, WHITE_PIN=17)
+components['light'] = light.Light(BLUE_PIN=2, RED_PIN=3, GREEN_PIN=17, WHITE_PIN=4)
 components['light'].color_preset('blue')
 print('[CONFIG] Освещение готово')
 
