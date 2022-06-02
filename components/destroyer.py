@@ -100,7 +100,7 @@ class Destroyer:
       self.command = 'wait'
     self.direction = 'off'
     while True:
-      if self.command == 'forward':
+      if self.command == 'forward' and self.state != 'forward':
         print(print_style.format('[Destroyer] Command -> Forward'))
         self.reverse_count = 0
         self.forward()
@@ -108,14 +108,14 @@ class Destroyer:
         with self.lock:
             self.command = 'wait'
 
-      elif self.command == 'backward':
+      elif self.command == 'backward' and self.state != 'backward':
         print(print_style.format('[Destroyer] Command -> Backward'))
         self.backward()
         self.end_time = self.end_time + self.reverse_working_time
         with self.lock:
             self.command = 'wait'
 
-      elif self.command == 'stop':
+      elif self.command == 'stop' and self.state != 'stop':
         print(print_style.format('[Destroyer] Command -> Stop'))
         self.stop()
         self.direction = 'off'
