@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
     if args['console']:
         os.environ['SDL_VIDEO_WINDOW_POS']='0,0'
-        os.popen('DISPLAY=":0" lxterminal --geometry=180x35 -t "Debug data" -e watch -n 0.1 -d tail -n 20 1.txt')
+        os.popen('DISPLAY=":0" lxterminal --geometry=85x35 -t "Debug data" -e watch -n 0.1 -d tail -n 20 1.txt')
         threading.Thread(target=writer_thread, args=()).start()
         
     while True:

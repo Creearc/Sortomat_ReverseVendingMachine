@@ -17,8 +17,8 @@ def write(text, x, y, screen, color=(200, 200, 200), size=150):
   screen.blit(text, text_rect)
 
 def generate(points, save_path):
-    baseUrl = 'http://lk.sortomat.ru'
-    frontUrl = 'http://lk.sortomat.ru'
+    baseUrl = 'https://sortomat-api.herokuapp.com'
+    frontUrl = 'https://sortomat-app.herokuapp.com'
     credentials = {
         "email":'sortomat@sortomat.ru',
         "password":'<4>!k.Mn'
@@ -28,10 +28,10 @@ def generate(points, save_path):
 
     # get token
     try:
-        r = requests.post(baseUrl+ '/api/auth/jwt/create', data=credentials)
+        r = requests.post(baseUrl + '/api/jwt/create', data=credentials)
         access_token = r.json()['access']
-    except:
-        pass
+    except Exception as e:
+            print('Exception 1 ', e)
 
 
     if access_token:
@@ -48,12 +48,12 @@ def generate(points, save_path):
 
         try:
             r = requests.post(baseUrl+ '/api/transactions/', data=json.dumps(transaction_data), headers=headers)
-            print(r.content)
+            print('content', r.content)
             transaction_id = r.json()['pk']
-        except:
-            pass
+        except Exception as e:
+            print('Exception 2 ', e)
 
-
+    print('transaction_id', transaction_id)
     if transaction_id:
 
         # Link for website
@@ -72,7 +72,7 @@ def generate(points, save_path):
 
 def make_img(background, save_path, qr_name='qrcode.png'):
   img = cv2.imread(qr_name)
-  img = img[40 : 430,  40 : 430].copy()
+  #img = img[40 : 430,  40 : 430].copy()
   out = cv2.imread(background)
   h, w = out.shape[:2]
   k = w // 6
@@ -89,8 +89,10 @@ if __name__ == '__main__':
   path = '/'.join(sys.path[0].replace('\\', '/').split('/')[:-1])
   sys.path.insert(0, path)
   print(path)
-  #generate(50, '{}/qrcode.png'.format(path))
-  img = make_img('{}/imgs/qr.png'.format(path), '{}/imgs'.format(path), '{}/qrcode.png'.format(path))
+  generate(58, '{}/qrcode.png'.format(path))
+  img = make_img('{}/imgs/qr.png'.format(path),
+                 '{}/imgs'.format(path),
+                 '{}/qrcode.png'.format(path))
   
   cv2.imshow('', img)
   cv2.waitKey(0)

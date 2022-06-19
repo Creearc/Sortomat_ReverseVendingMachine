@@ -4,3 +4,4 @@ test/output_photos/
 dataset/*
 test/nn/*
 *configure_file.py
+components/neural_network_2/vgg19_17.h5
