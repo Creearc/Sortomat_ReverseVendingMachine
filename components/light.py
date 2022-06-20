@@ -14,24 +14,28 @@ class Light:
     GPIO.setup(self.BLUE_PIN, GPIO.OUT, initial=GPIO.LOW)
     self.blue = GPIO.PWM(self.BLUE_PIN, 100)
     self.blue.start(0)
+    self.blue_power = 100
 
     # Красный цвет
     self.RED_PIN = RED_PIN
     GPIO.setup(self.RED_PIN, GPIO.OUT, initial=GPIO.LOW)
     self.red = GPIO.PWM(self.RED_PIN, 100)
     self.red.start(0)
+    self.red_power = 100
 
     # Зеленый цвет
     self.GREEN_PIN = GREEN_PIN
     GPIO.setup(self.GREEN_PIN, GPIO.OUT, initial=GPIO.LOW)
     self.green = GPIO.PWM(self.GREEN_PIN, 100)
     self.green.start(0)
+    self.green_power = 100
 
     # Белый цвет
     self.WHITE_PIN = WHITE_PIN
     GPIO.setup(self.WHITE_PIN, GPIO.OUT, initial=GPIO.LOW)
     self.white = GPIO.PWM(self.WHITE_PIN, 100)
     self.white.start(0)
+    self.white_power = 100
 
   # Яркость цвета
   def set(self, channel, p=0):
@@ -51,18 +55,30 @@ class Light:
     self.set('b', b)
     self.set('w', w)
   
-  def color_preset(self, c='', p=100):
+  def color_preset(self, c='', p=None):
     if c == 'blue':
+      if p is None:
+        p = self.blue_power
       self.color(0, 0, p, 0)
     elif c == 'white':
+      if p is None:
+        p = self.white_power
       self.color(0, 0, 0, p)
     elif c == 'red':
+      if p is None:
+        p = self.red_power
       self.color(p, 0, 0, 0)
     elif c == 'yellow':
+      if p is None:
+        p = self.yellow_power
       self.color(p, p, 0, 0)
     elif c == 'green':
+      if p is None:
+        p = self.green_power
       self.color(0, p, 0, 0)
     elif c == 'all':
+      if p is None:
+        p = self.white_power
       self.color(p, p, p, p)
     else:
       self.color(0, 0, 0, 0)
