@@ -30,7 +30,7 @@ model.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
 class Model:
     def __init__(self, model_path="vgg19_17.h5"):
         self.classes = ['not_pet', 'pet']
-        self.model = tf.keras.models.load_model("vgg19_17.h5")
+        self.model = tf.keras.models.load_model(model_path)
 
     def run(self, path_to_image):
         image = tf.keras.preprocessing.image.load_img(path_to_image, target_size=(320, 240))
