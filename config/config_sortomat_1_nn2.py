@@ -43,7 +43,7 @@ components['make_roi'] = lambda img : roi_function.roi(img)
 sys.path.insert(0, '{}/components/neural_network_2'.format(path))
 from model_component import Model
 
-components['nn_1'] = Model("{}/components/neural_network_2/vgg19_17.h5".format(path))
+components['nn_1'] = Model("vgg19_17.h5".format(path))
 print('[CONFIG] Нейронные сети готовы')
 
 print('[CONFIG] Подготовка крыльчатки')
