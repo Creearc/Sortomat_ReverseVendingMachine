@@ -101,7 +101,7 @@ components['camera'].red_gamma = 12.5
 components['camera'].red_max = 10
 
 components['camera'].blue_region = [220, 420, 200, 930]
-components['camera'].blue_gamma = 4.5
+components['camera'].blue_gamma = 7.5
 components['camera'].blue_max = 10
 print('[CONFIG] Камера готова')
 
