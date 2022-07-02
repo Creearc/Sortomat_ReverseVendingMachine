@@ -132,21 +132,21 @@ if __name__ == '__main__':
   sortomat = 1
 
   if sortomat == 1:
-    c.red_region = [100, 520, 200, 980]
-    c.red_gamma = 7.5
+    c.red_region = [200, 420, 200, 930]
+    c.red_gamma = 12.5
     c.red_max = 10
 
-    c.blue_region = [120, 520, 200, 980]
+    c.blue_region = [220, 420, 200, 930]
     c.blue_gamma = 4.5
     c.blue_max = 10
     
   elif sortomat == 2:
     c.red_region = [300, 420, 200, 930]
     c.red_gamma = 15.5
-    c.red_max = 100
+    c.red_max = 10
 
     c.blue_region = [300, 420, 200, 930]
-    c.blue_gamma = 6.5
+    c.blue_gamma = 4.5
     c.blue_max = 10
   
   while True:

@@ -96,6 +96,13 @@ print('[CONFIG] Подготовка камеры')
 from components import camera
 components['camera'] = camera.Camera()
 components['camera'].start()
+components['camera'].red_region = [300, 420, 200, 930]
+components['camera'].red_gamma = 15.5
+components['camera'].red_max = 10
+
+components['camera'].blue_region = [300, 420, 200, 930]
+components['camera'].blue_gamma = 4.5
+components['camera'].blue_max = 10
 print('[CONFIG] Камера готова')
 
 print('[CONFIG] Подготовка сканера кодов')
