@@ -104,20 +104,16 @@ def state_5(components, data):
     return 1, 2
   for i in range(5):
     img = components['camera'].get_img()
-  out = components['make_roi'](img)
-  if out.shape == (0, 0, 3):
-    out = img
 
   results = []
-  results.append(components['nn_1'].classify_images([img[150:610, 80:1020]]))
-  results.append(components['nn_1'].classify_images([out]))
-  results.append(components['nn_2'].classify_images([out]))
+  results.append(components['nn_1'].classify_images([img]))
+  results.append(components['nn_2'].classify_images([img]))
 
   print('[STATE_5] results={}'.format(results))
   cv2.imwrite('{}/{}.png'.format(data['save_path'],
                                  len(os.listdir(data['save_path'])),
                                  ' '.join(results)), img)
-  if results.count(components['SPECIAL']) == 3:
+  if results.count(components['SPECIAL']) == 2:
     data['add_points'] = 1
     components['rotator'].left = False
     components['destroyer'].use = False

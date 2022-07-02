@@ -10,8 +10,8 @@ print('[CONFIG] Начало')
 components = dict()
 
 print('[CONFIG] Сценариев')
-from config.card_scaner import stable_states
-from config.card_scaner import unstable_states
+from config.qr_1 import stable_states
+from config.qr_1 import unstable_states
 print('[CONFIG] Сценарии готовы')
 
 components['ROTATOR_CALIBRATION_TIME'] = 3.0
@@ -40,24 +40,10 @@ print('[CONFIG] Загрузка нейронных сетей')
 from components.neural_network import roi_function
 components['make_roi'] = lambda img : roi_function.roi(img)
 
-sys.path.insert(0, '{}/components/neural_network'.format(path))
+sys.path.insert(0, '{}/components/neural_network_2'.format(path))
 from model_component import Model
 
-components['nn_1'] = Model("{}/components/neural_network/models/model360x600FULL.tflite".format(path))
-components['nn_1'].debug = False
-components['nn_1'].input_shape = (512, 297, 3)#(l360, 600, 3)
-components['nn_1'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
-                 'Other__Other2', 'pet__Brown', 'pet__Green', 'pet__ChemOilMilk',
-                  'pet__Transparent']
-
-components['nn_2'] = Model("{}/components/neural_network/models/model360x600ROI.tflite".format(path))
-components['nn_2'].debug = False
-components['nn_2'].input_shape = (512, 297, 3)#(l360, 600, 3)
-components['nn_2'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
-                 'Other__Other2', 'pet__Brown', 'pet__Green', 'pet__ChemOilMilk',
-                  'pet__Transparent']
-
-
+components['nn_1'] = Model("{}/components/neural_network_2/vgg19_17.h5".format(path))
 print('[CONFIG] Нейронные сети готовы')
 
 print('[CONFIG] Подготовка крыльчатки')
@@ -96,11 +82,11 @@ print('[CONFIG] Подготовка камеры')
 from components import camera
 components['camera'] = camera.Camera()
 components['camera'].start()
-components['camera'].red_region = [200, 420, 200, 930]
-components['camera'].red_gamma = 12.5
+components['camera'].red_region = [100, 520, 200, 980]
+components['camera'].red_gamma = 7.5
 components['camera'].red_max = 10
 
-components['camera'].blue_region = [220, 420, 200, 930]
+components['camera'].blue_region = [120, 520, 200, 980]
 components['camera'].blue_gamma = 4.5
 components['camera'].blue_max = 10
 print('[CONFIG] Камера готова')
