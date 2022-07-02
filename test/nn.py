@@ -30,14 +30,14 @@ components['nn_2'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
 
 components['nn_3'] = Model("{}/components/neural_network/models/model360x600FULL.tflite".format(path))
 components['nn_3'].debug = False
-components['nn_3'].input_shape = (l360, 600, 3)
+components['nn_3'].input_shape = (512, 297, 3)#(l360, 600, 3)
 components['nn_3'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                  'Other__Other2', 'pet__Brown', 'pet__Green', 'pet__ChemOilMilk',
                   'pet__Transparent']
 
 components['nn_4'] = Model("{}/components/neural_network/models/model360x600ROI.tflite".format(path))
 components['nn_4'].debug = False
-components['nn_4'].input_shape = (l360, 600, 3)
+components['nn_4'].input_shape = (512, 297, 3)#(l360, 600, 3)
 components['nn_4'].labels = ['al__Other', 'empty_Empty', 'hdpe__ChemWhitemilk',
                  'Other__Other2', 'pet__Brown', 'pet__Green', 'pet__ChemOilMilk',
                   'pet__Transparent']
