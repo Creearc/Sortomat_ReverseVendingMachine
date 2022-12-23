@@ -64,6 +64,7 @@ def nn_analisis(detections, img, data, settings):
         x, y = int(W * detection[0]), int(H * detection[1])
         w, h = int(W * detection[2]), int(H * detection[3])
         class_name = settings['YOLO_CLASSES'][int(detection[-1])]
+        print(class_name)
         
         x, y = x - w // 2, y - h // 2
 
@@ -81,5 +82,5 @@ def nn_analisis(detections, img, data, settings):
                              1.0, 2,
                              no_back=False)
 
-
+    print('__________________')
     return detections, result_img
